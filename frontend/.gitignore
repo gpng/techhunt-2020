@@ -1,0 +1,9 @@
+# dependancies
+/node_modules
+
+# vercel related
+.next
+.vercel
+
+# vscode settings
+.vscode
