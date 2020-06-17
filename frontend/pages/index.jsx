@@ -1,21 +1,9 @@
 import React from 'react';
-// translations
-import useTranslations from '../translations/useTranslations';
+// components
+import DashboardLayout from '../components/Layouts/DashboardLayout';
 
 const Index = () => {
-  const { t } = useTranslations();
-
-  return (
-    <div className="root">
-      <h1>{t('index.title')}</h1>
-      <style jsx>
-        {`
-          .root {
-          }
-        `}
-      </style>
-    </div>
-  );
+  return <DashboardLayout>index page</DashboardLayout>;
 };
 
 export default Index;

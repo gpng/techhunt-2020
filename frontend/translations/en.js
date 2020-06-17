@@ -1,6 +1,8 @@
 const strings = {
-  index: {
-    title: 'Hello World!',
+  drawer: {
+    functions: {
+      uploadCSV: 'Upload CSV',
+    },
   },
 };
 export default strings;

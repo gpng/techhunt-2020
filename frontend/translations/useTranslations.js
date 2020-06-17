@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 // components
-import LocaleContext from '../components/locale/LocaleContext';
+import LocaleContext from '../components/Locale/LocaleContext';
 import translations, { LOCALES } from './index';
 
 const accessNestedProperty = (obj, key) => {
