@@ -2,7 +2,7 @@ import React, { useReducer, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 // constants
-import { LOCALES } from '../../translations';
+import { LOCALES } from '../../../translations';
 
 const LocaleContext = React.createContext({});
 

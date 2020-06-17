@@ -1,18 +1,32 @@
-import React from 'react';
+import React, { useContext } from 'react';
+// context
+import AppContext, { APP_ACTIONS } from '../../Context/App/AppContext';
 // components
+import Avatar from '../../Profile/Avatar';
 // translations
 import useTranslations from '../../../translations/useTranslations';
+// constants
+import { MODALS } from '../../../constants';
 import { COLORS } from '../../../constants/styles';
-import Avatar from '../../Profile/Avatar';
 
 const Drawer = () => {
   const { t } = useTranslations();
+  const { dispatch } = useContext(AppContext);
 
   return (
     <aside className="drawer-root">
       <Avatar width="6rem" />
       <div className="button-container">
-        <button type="button" className="button-function">
+        <button
+          type="button"
+          className="button-function"
+          onClick={() =>
+            dispatch({
+              type: APP_ACTIONS.MODAL_CLOSE,
+              payload: MODALS.UPLOAD_CSV,
+            })
+          }
+        >
           {t('drawer.functions.uploadCSV')}
         </button>
       </div>

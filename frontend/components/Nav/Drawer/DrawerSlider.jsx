@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import classNames from 'classnames';
 // components
 import Drawer from './Drawer';
-import { Menu } from '../../Icons';
+import { Menu } from '../../General/Icons';
 // utils
 import { useOnClickOutside } from '../../../utils/hooks';
 // constants

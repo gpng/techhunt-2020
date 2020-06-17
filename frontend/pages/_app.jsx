@@ -1,6 +1,9 @@
 import React from 'react';
+// contexts
+import { LocaleProvider } from '../components/Context/Locale/LocaleContext';
+import { AppProvider } from '../components/Context/App/AppContext';
 // components
-import { LocaleProvider } from '../components/Locale/LocaleContext';
+import ModalContainer from '../components/Modals/ModalContainer';
 // constants
 import { COLORS } from '../constants/styles';
 // styles
@@ -10,43 +13,46 @@ import 'normalize.css';
 // eslint-disable-next-line react/prop-types
 const App = ({ Component, pageProps }) => (
   <LocaleProvider>
-    <>
-      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-      <Component {...pageProps} />
-      <style jsx global>{`
-        html,
-        body,
-        #__next {
-          height: 100%;
-        }
+    <AppProvider>
+      <>
+        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+        <Component {...pageProps} />
+        <ModalContainer />
+        <style jsx global>{`
+          html,
+          body,
+          #__next {
+            height: 100%;
+          }
 
-        *,
-        *:before,
-        *:after {
-          box-sizing: border-box;
-        }
+          *,
+          *:before,
+          *:after {
+            box-sizing: border-box;
+          }
 
-        html {
-          font-size: 16px;
-        }
+          html {
+            font-size: 16px;
+          }
 
-        body {
-          font-family: Lato, BlinkMacSystemFont, -apple-system, Segoe UI, Helvetica Neue, Helvetica,
-            Arial, sans-serif;
-          background: ${COLORS.BACKGROUND_PRIMARY};
-          color: ${COLORS.TEXT_PRIMARY};
-        }
+          body {
+            font-family: Lato, BlinkMacSystemFont, -apple-system, Segoe UI, Helvetica Neue,
+              Helvetica, Arial, sans-serif;
+            background: ${COLORS.BACKGROUND_PRIMARY};
+            color: ${COLORS.TEXT_PRIMARY};
+          }
 
-        p {
-          margin: 0;
-        }
+          p {
+            margin: 0;
+          }
 
-        button {
-          cursor: pointer;
-          outline: none;
-        }
-      `}</style>
-    </>
+          button {
+            cursor: pointer;
+            outline: none;
+          }
+        `}</style>
+      </>
+    </AppProvider>
   </LocaleProvider>
 );
 
