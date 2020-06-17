@@ -56,7 +56,7 @@ const AppProvider = ({ children }) => {
   const postCsvRequest = useRef(new PostCSV());
 
   const uploadCsv = async (file) => {
-    // postCsvRequest.current.refresh();
+    postCsvRequest.current.refresh();
     dispatch({ type: APP_ACTIONS.UPLOAD_CSV.LOADING });
     const [err] = await postCsvRequest.current.call(file);
     dispatch({

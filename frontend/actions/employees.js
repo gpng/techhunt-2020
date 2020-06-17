@@ -28,3 +28,28 @@ export class PostCSV extends AxioRequest {
     return [err?.response?.data?.message ?? 'server error', null];
   }
 }
+
+export class SearchEmployees extends AxioRequest {
+  async call(minSalary, maxSalary, sortBy, sortAsc, offset, limit) {
+    const uri = `${API_HOST}/users`;
+
+    const params = {
+      minSalary,
+      maxSalary,
+      sort: `${sortAsc ? '+' : '-'}${sortBy}`,
+      offset,
+      limit,
+    };
+
+    const [err, res] = await to(
+      axios.get(uri, {
+        params,
+        cancelToken: this.getCancelToken(),
+      }),
+    );
+    if (!err && res.status === 200 && res.data) {
+      return [null, res.data];
+    }
+    return [err?.response?.data?.message ?? 'server error', null];
+  }
+}
