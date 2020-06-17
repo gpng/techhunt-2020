@@ -28,10 +28,21 @@ func BulkUpsertEmployees(db *gorm.DB, employees []Employee) error {
 	return db.Transaction(func(tx *gorm.DB) error {
 		for _, employee := range employees {
 			if err := employee.Save(tx); err != nil {
+				u.LogError(err)
 				return err
 			}
 		}
 
 		return nil
 	})
+}
+
+// GetAllEmployees from db
+func GetAllEmployees(db *gorm.DB) ([]Employee, error) {
+	employees := []Employee{}
+	err := db.Find(&employees).Error
+	if err != nil && !gorm.IsRecordNotFoundError(err) {
+		u.LogError(err)
+	}
+	return employees, err
 }

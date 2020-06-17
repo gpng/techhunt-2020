@@ -34,64 +34,11 @@ func (s *Service) handleUpload() http.HandlerFunc {
 
 		var buffer bytes.Buffer
 		io.Copy(&buffer, file)
-		data := strings.TrimSpace(buffer.String())
 
-		rowsString := strings.Split(data, "\n")
-
-		// check if no data
-		if len(rowsString) <= 0 {
+		employees, err := parseCSVToEmployees(buffer.String())
+		if err != nil {
 			s.render.RespondWithStatus(w, r, http.StatusBadRequest,
-				s.render.ErrorMessage(c.ErrCsvInvalid, err, "No data found in csv"),
-			)
-			return
-		}
-
-		// remove headers
-		rowsString = rowsString[1:]
-
-		employees := []models.Employee{}
-		for _, rowString := range rowsString {
-			trimmed := strings.TrimSpace(rowString)
-
-			// skip row if it is a comment
-			if trimmed[0] == '#' {
-				continue
-			}
-
-			cols := strings.Split(trimmed, ",")
-			if len(cols) != 4 {
-				s.render.RespondWithStatus(w, r, http.StatusBadRequest,
-					s.render.ErrorMessage(c.ErrCsvInvalid, err, "Incorrect number of columns found"),
-				)
-				return
-			}
-			employee := models.Employee{}
-			for i, val := range cols {
-				switch i {
-				case 0: // id
-					employee.ID = val
-				case 1: // login
-					employee.Login = val
-				case 2: // name
-					employee.Name = val
-				case 3: // salary
-					salary, err := strconv.ParseFloat(val, 64)
-					if err != nil || salary <= 0 {
-						s.render.RespondWithStatus(w, r, http.StatusBadRequest,
-							s.render.ErrorMessage(c.ErrCsvInvalid, err, fmt.Sprintf("Invalid salary found for employee id %s", employee.ID)),
-						)
-						return
-					}
-					employee.Salary = salary
-				}
-			}
-			employees = append(employees, employee)
-		}
-
-		// check if no valid data
-		if len(employees) <= 0 {
-			s.render.RespondWithStatus(w, r, http.StatusBadRequest,
-				s.render.ErrorMessage(c.ErrCsvInvalid, err, "No valid data found in csv"),
+				s.render.ErrorMessage(c.ErrCsvInvalid, err, err.Error()),
 			)
 			return
 		}
@@ -110,4 +57,58 @@ func (s *Service) handleUpload() http.HandlerFunc {
 
 		s.render.Respond(w, r, s.render.Message(true, "Employees updated successfully"))
 	}
+}
+
+// parseCSVToEmployees parses a csv string into a slice of employees
+func parseCSVToEmployees(csvString string) ([]models.Employee, error) {
+	data := strings.TrimSpace(csvString)
+
+	rowsString := strings.Split(data, "\n")
+
+	// check if no data
+	if len(rowsString) <= 0 {
+		return nil, fmt.Errorf("No data found in csv")
+	}
+
+	// remove headers
+	rowsString = rowsString[1:]
+
+	employees := []models.Employee{}
+	for _, rowString := range rowsString {
+		trimmed := strings.TrimSpace(rowString)
+
+		// skip row if it is a comment
+		if trimmed[0] == '#' {
+			continue
+		}
+
+		cols := strings.Split(trimmed, ",")
+		if len(cols) != 4 {
+			return nil, fmt.Errorf("Incorrect number of columns found")
+		}
+		employee := models.Employee{}
+		for i, val := range cols {
+			switch i {
+			case 0: // id
+				employee.ID = val
+			case 1: // login
+				employee.Login = val
+			case 2: // name
+				employee.Name = val
+			case 3: // salary
+				salary, err := strconv.ParseFloat(val, 64)
+				if err != nil || salary <= 0 {
+					return nil, fmt.Errorf("Invalid salary found for employee id %s", employee.ID)
+				}
+				employee.Salary = salary
+			}
+		}
+		employees = append(employees, employee)
+	}
+
+	// check if no valid data
+	if len(employees) <= 0 {
+		return nil, fmt.Errorf("No valid employee data found in csv")
+	}
+	return employees, nil
 }
