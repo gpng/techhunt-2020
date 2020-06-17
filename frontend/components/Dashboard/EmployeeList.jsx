@@ -1,4 +1,7 @@
 import React from 'react';
+// components
+import { Delete, Edit } from '../General/Icons';
+import IconButton from '../General/Buttons/IconButton';
 
 const EmployeeList = () => {
   return (
@@ -23,14 +26,24 @@ const EmployeeList = () => {
             <td className="col col-cell">Harry Potter</td>
             <td className="col col-cell">hp001</td>
             <td className="col col-cell">3000</td>
-            <td className="col col-cell">delete</td>
+            <td className="col col-cell">
+              <div className="buttons-wrapper">
+                <IconButton onClick={() => {}} icon={<Edit />} />
+                <IconButton onClick={() => {}} icon={<Delete />} />
+              </div>
+            </td>
           </tr>
           <tr className="row">
             <td className="col col-cell">e00001</td>
             <td className="col col-cell">Harry Potter</td>
             <td className="col col-cell">hp001</td>
             <td className="col col-cell">3000</td>
-            <td className="col col-cell">delete</td>
+            <td className="col col-cell">
+              <div className="buttons-wrapper">
+                <IconButton onClick={() => {}} icon={<Edit />} />
+                <IconButton onClick={() => {}} icon={<Delete />} />
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -67,6 +80,11 @@ const EmployeeList = () => {
         .col:last-child {
           padding-right: 1rem;
           border-radius: 0 0.4rem 0.4rem 0;
+        }
+
+        .buttons-wrapper {
+          display: flex;
+          align-items: center;
         }
       `}</style>
     </div>
