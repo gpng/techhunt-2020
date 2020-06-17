@@ -8,5 +8,9 @@ const strings = {
     title: 'Upload CSV',
     success: 'Successfully upload employee data!',
   },
+  dashboard: {
+    title: 'Employees',
+    buttonSearch: 'Search Employees',
+  },
 };
 export default strings;

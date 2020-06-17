@@ -61,5 +61,22 @@ const (
 
 // error strings as returned by gorm, for checking for specific errors
 const (
-	StringErrDuplicateEmployeeLogin = "pq: duplicate key value violates unique constraint \"employees_login_key\""
+	ErrStringDbDuplicateEmployeeLogin = "pq: duplicate key value violates unique constraint \"employees_login_key\""
+)
+
+// error strings for search params
+const (
+	ErrStringSearchMissingParams    = "missing params"
+	ErrStringSearchInvalidSort      = "sort must be in the form +param (eg +name, -salary)"
+	ErrStringSearchInvalidMinSalary = "minSalary must be a number greater or equal to 0"
+	ErrStringSearchInvalidMaxSalary = "maxSalary must be a number greater or equal to 0, and greater than minSalary"
+	ErrStringSearchInvalidOffset    = "offset must be a number greater or equal to 0"
+	ErrStringSearchInvalidLimit     = "limit must be a number greater or equal to 1"
+)
+
+// error strings for uploaded csv
+const (
+	ErrStringCsvNoData           = "No data found in csv"
+	ErrStringCsvIncorrectColumns = "Incorrect number of columns found"
+	ErrStringCsvInvalidSalary    = "Invalid salary found"
 )

@@ -36,7 +36,10 @@ down:
 	$(DOCKERCOMPOSECMD) down
 
 test:
-	godotenv -f .test.env $(GOTEST) -cover ./...
+	$(GOTEST) -cover ./...
+
+test-v:
+	$(GOTEST) -cover -v ./...
 
 clean: down
 	@echo "=============cleaning up============="
@@ -44,8 +47,8 @@ clean: down
 	$(DOCKERCMD) volume prune -f
 
 run-prod:
-	$(DOCKERCMD) build -t chanced-api-eb .
-	docker run -p 4000:5000 chanced-api-eb
+	$(DOCKERCMD) build -t $(CONTAINER_TAG)-eb .
+	docker run -p 4000:5000 $(CONTAINER_TAG)-eb
 
 generate-docs:
 	swag init -g $(MAIN_PATH)

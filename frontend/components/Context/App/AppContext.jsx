@@ -1,12 +1,17 @@
 import React, { useReducer, useRef } from 'react';
 import PropTypes from 'prop-types';
 // actions
-import { PostCSV } from '../../../actions/employees';
+import { PostCSV, SearchEmployees } from '../../../actions/employees';
 
 const initialState = {
-  employees: [],
   openModal: null,
   upload: {
+    loading: false,
+    success: false,
+    error: null,
+  },
+  search: {
+    employees: [],
     loading: false,
     success: false,
     error: null,
@@ -19,7 +24,12 @@ const APP_ACTIONS = {
   UPLOAD_CSV: {
     SUBMIT: 'upload_submit',
     LOADING: 'upload_loading',
-    LOADED: 'loaded',
+    LOADED: 'upload_loaded',
+  },
+  SEARCH: {
+    SUBMIT: 'search_submit',
+    LOADING: 'search_loading',
+    LOADED: 'search_loaded',
   },
 };
 
@@ -38,6 +48,18 @@ const reducer = (state, action) => {
         ...state,
         upload: { loading: false, success: action.payload.success, error: action.payload.error },
       };
+    case APP_ACTIONS.SEARCH.LOADING:
+      return { ...state, search: { employees: [], loading: true, success: false, error: null } };
+    case APP_ACTIONS.SEARCH.LOADED:
+      return {
+        ...state,
+        search: {
+          employees: action.payload.results,
+          loading: false,
+          success: action.payload.success,
+          error: action.payload.error,
+        },
+      };
     default: {
       // eslint-disable-next-line no-console
       console.warn(
@@ -54,14 +76,36 @@ const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const postCsvRequest = useRef(new PostCSV());
+  const searchRequest = useRef(new SearchEmployees());
 
   const uploadCsv = async (file) => {
-    // postCsvRequest.current.refresh();
+    postCsvRequest.current.refresh();
     dispatch({ type: APP_ACTIONS.UPLOAD_CSV.LOADING });
     const [err] = await postCsvRequest.current.call(file);
     dispatch({
       type: APP_ACTIONS.UPLOAD_CSV.LOADED,
       payload: {
+        success: !err,
+        error: err,
+      },
+    });
+  };
+
+  const searchEmployees = async ({ minSalary, maxSalary, sortBy, sortAsc, offset, limit }) => {
+    searchRequest.current.refresh();
+    dispatch({ type: APP_ACTIONS.SEARCH.LOADING });
+    const [err, res] = await searchRequest.current.call(
+      minSalary,
+      maxSalary,
+      sortBy,
+      sortAsc,
+      offset,
+      limit,
+    );
+    dispatch({
+      type: APP_ACTIONS.SEARCH.LOADED,
+      payload: {
+        results: res?.results ?? [],
         success: !err,
         error: err,
       },
@@ -75,6 +119,9 @@ const AppProvider = ({ children }) => {
     switch (action.type) {
       case APP_ACTIONS.UPLOAD_CSV.SUBMIT:
         uploadCsv(action.payload);
+        break;
+      case APP_ACTIONS.SEARCH.SUBMIT:
+        searchEmployees(action.payload);
         break;
       default:
         dispatch(action);

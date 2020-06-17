@@ -35,15 +35,23 @@ func (employee *Employee) Save(db *gorm.DB) error {
 	return err
 }
 
+// Possible values for sort column names
+const (
+	SortID     = "id"
+	SortLogin  = "login"
+	SortName   = "name"
+	SortSalary = "salary"
+)
+
 // SortBy type to contain and check for valid sorting column names
 type SortBy string
 
-// Possible values for sort column names
+// Use SortBy type as enum
 const (
-	ID     SortBy = "id"
-	Login  SortBy = "login"
-	Name   SortBy = "name"
-	Salary SortBy = "salary"
+	ID     SortBy = SortID
+	Login  SortBy = SortLogin
+	Name   SortBy = SortName
+	Salary SortBy = SortSalary
 )
 
 // IsValid sort column name
@@ -79,8 +87,8 @@ func (params *EmployeeSearch) Search(db *gorm.DB) ([]Employee, error) {
 	err := db.Limit(params.Limit).
 		Offset(params.Offset).
 		Order(fmt.Sprintf("%s %s", params.SortBy, sortOrder)).
-		Find(&employees).
 		Where("salary BETWEEN ? and ?", params.MinSalary, params.MaxSalary).
+		Find(&employees).
 		Error
 	if err != nil && !gorm.IsRecordNotFoundError(err) {
 		u.LogError(err)
