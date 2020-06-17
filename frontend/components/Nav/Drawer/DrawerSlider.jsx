@@ -2,11 +2,11 @@ import React, { useState, useRef } from 'react';
 import classNames from 'classnames';
 // components
 import Drawer from './Drawer';
-import { Menu } from '../Icons';
+import { Menu } from '../../Icons';
 // utils
-import { useOnClickOutside } from '../../utils/hooks';
+import { useOnClickOutside } from '../../../utils/hooks';
 // constants
-import { COLORS } from '../../constants/styles';
+import { COLORS } from '../../../constants/styles';
 
 const DrawerSlider = () => {
   const [open, setOpen] = useState(false);

@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // components
-import Drawer from '../Drawer/Drawer';
+import Drawer from '../Nav/Drawer/Drawer';
 // constants
 import { BREAKPOINTS } from '../../constants';
-import Header from '../Header/Header';
+import Header from '../Nav/Header/Header';
 
 const DashboardLayout = ({ children }) => {
   return (

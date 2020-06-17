@@ -1,8 +1,8 @@
 import React from 'react';
 // components
-import Avatar from '../Profile/Avatar';
+import Avatar from '../../Profile/Avatar';
 // constants
-import { COLORS } from '../../constants/styles';
+import { COLORS } from '../../../constants/styles';
 import DrawerSlider from '../Drawer/DrawerSlider';
 
 const Header = () => {

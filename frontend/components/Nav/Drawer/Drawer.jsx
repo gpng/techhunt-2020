@@ -1,9 +1,9 @@
 import React from 'react';
 // components
 // translations
-import useTranslations from '../../translations/useTranslations';
-import { COLORS } from '../../constants/styles';
-import Avatar from '../Profile/Avatar';
+import useTranslations from '../../../translations/useTranslations';
+import { COLORS } from '../../../constants/styles';
+import Avatar from '../../Profile/Avatar';
 
 const Drawer = () => {
   const { t } = useTranslations();
