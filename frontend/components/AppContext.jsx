@@ -8,7 +8,7 @@ const initialState = {
 
 const ACTIONS = {};
 
-const AppContxt = React.createContext();
+const AppContext = React.createContext();
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -23,7 +23,7 @@ const reducer = (state, action) => {
 const LocaleProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  return <AppContxt.Provider value={{ state, dispatch }}>{children}</AppContxt.Provider>;
+  return <AppContext.Provider value={{ state, dispatch }}>{children}</AppContext.Provider>;
 };
 
 LocaleProvider.propTypes = {
@@ -31,4 +31,4 @@ LocaleProvider.propTypes = {
 };
 
 export { LocaleProvider, ACTIONS };
-export default AppContxt;
+export default AppContext;
