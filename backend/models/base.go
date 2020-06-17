@@ -17,6 +17,13 @@ type Model struct {
 	DeletedAt *time.Time `json:"-" sql:"index"`
 }
 
+// ModelNoID without auto generated uuid
+type ModelNoID struct {
+	CreatedAt time.Time  `json:"-"`
+	UpdatedAt time.Time  `json:"-"`
+	DeletedAt *time.Time `json:"-" sql:"index"`
+}
+
 // ModelWithTime which exports create/updated dates to json
 type ModelWithTime struct {
 	ID        string     `json:"id" gorm:"type:uuid;primary_key;default:uuid_generate_v4()"`

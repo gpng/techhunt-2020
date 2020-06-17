@@ -29,15 +29,9 @@ HR Employee Salary Management API
 
 3. Visit `localhost:4000/some` to check if API is responding
 
-4. Generate docs from swagger comments
+4. Visit `localhost:4000/docs` for documentation if `DOCS=true` in .env
 
-   ```
-   make generate-docs
-   ```
-
-5. Visit `localhost:4000/docs` for documentation if `DOCS=true` in .env
-
-6. Stop docker containers
+5. Stop docker containers
 
    ```
    make down

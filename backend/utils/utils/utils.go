@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"encoding/json"
 	"log"
 	"mime/multipart"
 	"net/http"
@@ -15,34 +14,6 @@ type ContextKey string
 
 func (c ContextKey) String() string {
 	return "context key " + string(c)
-}
-
-// Message maps and status and message into JSON formatted string
-func Message(status bool, message string) map[string]interface{} {
-	return map[string]interface{}{"status": status, "message": message}
-}
-
-// ErrorMessage maps status and message into JSON formatted string
-func ErrorMessage(errorCode int, message string) map[string]interface{} {
-	return map[string]interface{}{"status": false, "errorCode": errorCode, "message": message}
-}
-
-// DataMessage maps data, status and message into JSON formatted string
-func DataMessage(data interface{}, status bool, message string) map[string]interface{} {
-	return map[string]interface{}{"status": status, "message": message, "data": data}
-}
-
-// Respond encodes a JSON response to a http request
-func Respond(w http.ResponseWriter, data map[string]interface{}) {
-	w.Header().Add("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(data)
-}
-
-// RespondWithStatus encodes a JSON response to a http request and modifies response status code
-func RespondWithStatus(w http.ResponseWriter, statusCode int, data map[string]interface{}) {
-	w.WriteHeader(statusCode)
-	w.Header().Add("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(data)
 }
 
 // HashPassword will generate a bcrypt hash

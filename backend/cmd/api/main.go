@@ -1,9 +1,9 @@
-// @title Golang API
+// @title TechHunt 2020 Backend
 // @version 0.0.1
-// @description Simple REST API using golang
+// @description REST API for TechHunt2020 Task - HR Employee Salary Management
 
 // @contact.name Developers
-// @contact.email dev@localhost
+// @contact.email geraldpng@gmail.com
 
 // @host localhost:4000
 // @BasePath /
@@ -24,6 +24,8 @@ import (
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/cors"
 	httpSwagger "github.com/swaggo/http-swagger"
+
+	_ "github.com/gpng/techhunt-2020/backend/docs"
 
 	"go.uber.org/zap"
 )

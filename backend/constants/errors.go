@@ -14,7 +14,6 @@ const (
 	ErrPasswordHashFailed    = 304
 	ErrInvalidPassword       = 305
 	ErrCreateTokenFailed     = 306
-	ErrCompliancedNotPassed  = 307
 )
 
 // 1xx - DB error
@@ -52,4 +51,14 @@ const (
 // 6xx - 3rd party error
 const (
 	ErrS3UploadFailed = 601
+)
+
+// 10xx - upload csv specific errors
+const (
+	ErrCsvInvalid = 1001
+)
+
+// error strings as returned by gorm, for checking for specific errors
+const (
+	StringErrDuplicateEmployeeLogin = "pq: duplicate key value violates unique constraint \"employees_login_key\""
 )

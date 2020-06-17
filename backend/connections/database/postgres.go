@@ -6,6 +6,7 @@ import (
 
 	"github.com/gpng/techhunt-2020/backend/config"
 	c "github.com/gpng/techhunt-2020/backend/constants"
+	"github.com/gpng/techhunt-2020/backend/models"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres" // required for postgres dbs
@@ -44,4 +45,6 @@ func openDB(connString string) (*gorm.DB, error) {
 func migrate(db *gorm.DB) {
 	// db migration, automatically updates tables and schemas
 	db.Exec(c.FunctionExtensionUUID)
+
+	db.AutoMigrate(&models.Employee{})
 }

@@ -10,5 +10,7 @@ func (s *Service) Routes() chi.Router {
 
 	router.Get("/", s.handleStatus())
 
+	router.Post("/upload", s.handleUpload())
+
 	return router
 }

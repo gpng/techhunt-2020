@@ -1,16 +1,41 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "Simple REST API using golang",
-        "title": "Golang API",
+        "description": "REST API for TechHunt2020 Task - HR Employee Salary Management",
+        "title": "TechHunt 2020 Backend",
         "contact": {
             "name": "Developers",
-            "email": "dev@localhost"
+            "email": "geraldpng@gmail.com"
         },
         "license": {},
         "version": "0.0.1"
     },
     "host": "localhost:4000",
     "basePath": "/",
-    "paths": {}
+    "paths": {
+        "/users/upload": {
+            "post": {
+                "description": "Uploads csv, and bulk upserts employee data in db",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "employees"
+                ],
+                "summary": "Bulk upserts employee data",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "Employee CSV",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    }
+                ]
+            }
+        }
+    }
 }

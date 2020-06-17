@@ -2,11 +2,27 @@ basePath: /
 host: localhost:4000
 info:
   contact:
-    email: dev@localhost
+    email: geraldpng@gmail.com
     name: Developers
-  description: Simple REST API using golang
+  description: REST API for TechHunt2020 Task - HR Employee Salary Management
   license: {}
-  title: Golang API
+  title: TechHunt 2020 Backend
   version: 0.0.1
-paths: {}
+paths:
+  /users/upload:
+    post:
+      consumes:
+      - application/json
+      description: Uploads csv, and bulk upserts employee data in db
+      parameters:
+      - description: Employee CSV
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      summary: Bulk upserts employee data
+      tags:
+      - employees
 swagger: "2.0"
