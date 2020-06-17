@@ -13,6 +13,68 @@
     "host": "localhost:4000",
     "basePath": "/",
     "paths": {
+        "/users": {
+            "get": {
+                "description": "Search employee data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "employees"
+                ],
+                "summary": "Search employee data",
+                "parameters": [
+                    {
+                        "type": "number",
+                        "description": "Minimum salary",
+                        "name": "minSalary",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "number",
+                        "description": "Maximum salary",
+                        "name": "maxSalary",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "number",
+                        "description": "Offset results",
+                        "name": "offset",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "number",
+                        "description": "Number of results",
+                        "name": "limit",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "enum": [
+                            "+name",
+                            "-name",
+                            "+login",
+                            "-login",
+                            "+id",
+                            "-id",
+                            "+salary",
+                            "-salary"
+                        ],
+                        "type": "string",
+                        "description": "Sort by parameter, etc +name, -login",
+                        "name": "sort",
+                        "in": "query",
+                        "required": true
+                    }
+                ]
+            }
+        },
         "/users/upload": {
             "post": {
                 "description": "Uploads csv, and bulk upserts employee data in db",

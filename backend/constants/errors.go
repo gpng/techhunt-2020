@@ -40,6 +40,7 @@ const (
 	ErrInvalidFile             = 406
 	ErrInvalidFileType         = 407
 	ErrResourceNotFound        = 408
+	ErrInvalidParam            = 409
 )
 
 // 5xx - Internal Error

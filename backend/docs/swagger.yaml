@@ -9,6 +9,51 @@ info:
   title: TechHunt 2020 Backend
   version: 0.0.1
 paths:
+  /users:
+    get:
+      consumes:
+      - application/json
+      description: Search employee data
+      parameters:
+      - description: Minimum salary
+        in: query
+        name: minSalary
+        required: true
+        type: number
+      - description: Maximum salary
+        in: query
+        name: maxSalary
+        required: true
+        type: number
+      - description: Offset results
+        in: query
+        name: offset
+        required: true
+        type: number
+      - description: Number of results
+        in: query
+        name: limit
+        required: true
+        type: number
+      - description: Sort by parameter, etc +name, -login
+        enum:
+        - +name
+        - -name
+        - +login
+        - -login
+        - +id
+        - -id
+        - +salary
+        - -salary
+        in: query
+        name: sort
+        required: true
+        type: string
+      produces:
+      - application/json
+      summary: Search employee data
+      tags:
+      - employees
   /users/upload:
     post:
       consumes:

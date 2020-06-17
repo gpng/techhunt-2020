@@ -8,7 +8,7 @@ import (
 func (s *Service) Routes() chi.Router {
 	router := chi.NewRouter()
 
-	router.Get("/", s.handleStatus())
+	router.Get("/", s.handleSearch())
 
 	router.Post("/upload", s.handleUpload())
 

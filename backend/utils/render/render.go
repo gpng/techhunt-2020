@@ -24,7 +24,7 @@ func New(logger *zap.Logger) *Render {
 type Response struct {
 	Status    bool        `json:"status"`
 	Message   string      `json:"message"`
-	Data      interface{} `json:"data,omitempty"`
+	Data      interface{} `json:"results,omitempty"`
 	ErrorCode int         `json:"errorCode,omitempty"`
 	Error     error       `json:"-"`
 	Logger    *zap.Logger `json:"-"`
