@@ -2,8 +2,11 @@ import React, { useState, useRef } from 'react';
 import classNames from 'classnames';
 // components
 import Drawer from './Drawer';
+import { Menu } from '../Icons';
 // utils
 import { useOnClickOutside } from '../../utils/hooks';
+// constants
+import { COLORS } from '../../constants/styles';
 
 const DrawerSlider = () => {
   const [open, setOpen] = useState(false);
@@ -19,7 +22,7 @@ const DrawerSlider = () => {
   return (
     <div className="drawer-slider-root">
       <button type="button" className="button-menu" onClick={() => setOpen(!open)}>
-        hamburger
+        <Menu width="1rem" fill={COLORS.BACKGROUND_PRIMARY} />
       </button>
       <div
         ref={containerRef}
@@ -31,6 +34,16 @@ const DrawerSlider = () => {
       </div>
       <style jsx>{`
         .button-drawer-slider {
+        }
+
+        .button-menu {
+          width: 2rem;
+          height: 2rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: transparent;
+          border: none;
         }
 
         .drawer-slider-container {
