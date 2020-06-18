@@ -87,7 +87,7 @@ func (params *EmployeeSearch) Search(db *gorm.DB) ([]Employee, error) {
 	err := db.Limit(params.Limit).
 		Offset(params.Offset).
 		Order(fmt.Sprintf("%s %s", params.SortBy, sortOrder)).
-		Where("salary BETWEEN ? and ?", params.MinSalary, params.MaxSalary).
+		Where(fmt.Sprintf("salary BETWEEN %d and %d", params.MinSalary, params.MaxSalary)).
 		Find(&employees).
 		Error
 	if err != nil && !gorm.IsRecordNotFoundError(err) {
