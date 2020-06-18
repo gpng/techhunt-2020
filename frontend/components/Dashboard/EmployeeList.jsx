@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Delete, Edit } from '../General/Icons';
 import IconButton from '../General/Buttons/IconButton';
 
-const EmployeeList = ({ employees, columns }) => {
+const EmployeeList = ({ employees, columns, actionLabel }) => {
   return (
     <div className="employee-list-root">
       <table className="table-body">
@@ -15,7 +15,7 @@ const EmployeeList = ({ employees, columns }) => {
                 {col.label}
               </th>
             ))}
-            <th className="col">Actions</th>
+            <th className="col">{actionLabel}</th>
           </tr>
         </thead>
         <tbody>
@@ -95,6 +95,7 @@ EmployeeList.propTypes = {
       accessor: PropTypes.string.isRequired,
     }),
   ).isRequired,
+  actionLabel: PropTypes.string.isRequired,
 };
 
 export default EmployeeList;

@@ -69,7 +69,7 @@ const Dashboard = () => {
       <section className="section-inputs">
         <div className="input-wrapper">
           <TextField
-            label="Minimum Salary"
+            label={t('dashboard.minimumSalary')}
             type="number"
             value={minSalaryEdit}
             onChange={setMinSalaryEdit}
@@ -77,7 +77,7 @@ const Dashboard = () => {
         </div>
         <div>
           <TextField
-            label="Maximum Salary"
+            label={t('dashboard.maximumSalary')}
             type="number"
             value={maxSalaryEdit}
             onChange={setMaxSalaryEdit}
@@ -89,7 +89,7 @@ const Dashboard = () => {
           {t('dashboard.buttonSearch')}
         </button>
         <div className="sort-wrapper">
-          <span>Sort By</span>
+          <span>{t('dashboard.sortBy')}</span>
           <select value={sort} onChange={(ev) => setSort(ev.target.value)}>
             {searchOptions.map((x) => (
               <option key={x.value} value={x.value}>
@@ -110,6 +110,7 @@ const Dashboard = () => {
             { key: 'login', label: t('dashboard.columns.login'), accessor: 'login' },
             { key: 'salary', label: t('dashboard.columns.salary'), accessor: 'salary' },
           ]}
+          actionLabel={t('dashboard.columns.actions')}
         />
       </section>
       <style jsx>{`
@@ -160,6 +161,7 @@ const Dashboard = () => {
         @media only screen and (max-width: ${BREAKPOINTS.SMALL}px) {
           .buttons-wrapper {
             flex-direction: column;
+            align-items: flex-start;
           }
 
           .sort-wrapper {
