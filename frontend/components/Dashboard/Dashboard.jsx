@@ -7,7 +7,7 @@ import EmployeeList from './EmployeeList';
 // tanslations
 import useTranslations from '../../translations/useTranslations';
 // constants
-import { SEARCH } from '../../constants';
+import { SEARCH, BREAKPOINTS } from '../../constants';
 
 const Dashboard = () => {
   const { t } = useTranslations();
@@ -155,6 +155,16 @@ const Dashboard = () => {
         .section-employees {
           flex: 1 1 auto;
           margin-top: 1rem;
+        }
+
+        @media only screen and (max-width: ${BREAKPOINTS.SMALL}px) {
+          .buttons-wrapper {
+            flex-direction: column;
+          }
+
+          .sort-wrapper {
+            margin-top: 1rem;
+          }
         }
       `}</style>
     </div>
