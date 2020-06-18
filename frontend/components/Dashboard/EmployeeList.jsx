@@ -55,7 +55,7 @@ const EmployeeList = ({ employees, columns }) => {
         }
 
         .col {
-          width: 20%;
+          width: ${100 / (columns.length + 1)}%;
           text-align: left;
           padding: 1rem 0.5rem;
         }
