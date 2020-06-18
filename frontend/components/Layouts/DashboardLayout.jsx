@@ -23,6 +23,7 @@ const DashboardLayout = ({ children }) => {
           display: grid;
           grid-template-columns: 12rem auto;
           grid-template-rows: 3rem auto;
+          overflow: hidden;
         }
 
         .drawer-container {
@@ -33,6 +34,9 @@ const DashboardLayout = ({ children }) => {
         .content-container {
           grid-column: 2 / 3;
           grid-row: 1 / 3;
+          max-height: 100%;
+          overflow: auto;
+          max-width: 100vw;
         }
 
         .header-container {
