@@ -4,26 +4,28 @@ import PropTypes from 'prop-types';
 import { Delete, Edit } from '../General/Icons';
 import IconButton from '../General/Buttons/IconButton';
 
-const EmployeeList = ({ employees }) => {
+const EmployeeList = ({ employees, columns }) => {
   return (
     <div className="employee-list-root">
       <table className="table-body">
         <thead>
           <tr>
-            <th className="col">ID</th>
-            <th className="col">Name</th>
-            <th className="col">Login</th>
-            <th className="col">Salary</th>
+            {columns.map((col) => (
+              <th key={col.key} className="col">
+                {col.label}
+              </th>
+            ))}
             <th className="col">Actions</th>
           </tr>
         </thead>
         <tbody>
           {employees.map((e) => (
             <tr className="row" key={e.id}>
-              <td className="col col-cell">{e.id}</td>
-              <td className="col col-cell">{e.name}</td>
-              <td className="col col-cell">{e.login}</td>
-              <td className="col col-cell">{e.salary}</td>
+              {columns.map((col) => (
+                <td key={col.key} className="col col-cell">
+                  {e[col.accessor]}
+                </td>
+              ))}
               <td className="col col-cell">
                 <div className="buttons-wrapper">
                   <IconButton onClick={() => {}} icon={<Edit />} />
@@ -86,6 +88,13 @@ EmployeeList.defaultProps = {
 
 EmployeeList.propTypes = {
   employees: PropTypes.arrayOf(PropTypes.object),
+  columns: PropTypes.arrayOf(
+    PropTypes.shape({
+      key: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+      accessor: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
 };
 
 export default EmployeeList;

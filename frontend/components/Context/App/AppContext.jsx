@@ -1,4 +1,4 @@
-import React, { useReducer, useRef } from 'react';
+import React, { useReducer, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 // actions
 import { PostCSV, SearchEmployees } from '../../../actions/employees';
@@ -91,17 +91,10 @@ const AppProvider = ({ children }) => {
     });
   };
 
-  const searchEmployees = async ({ minSalary, maxSalary, sortBy, sortAsc, offset, limit }) => {
+  const searchEmployees = async ({ minSalary, maxSalary, sort, offset, limit }) => {
     searchRequest.current.refresh();
     dispatch({ type: APP_ACTIONS.SEARCH.LOADING });
-    const [err, res] = await searchRequest.current.call(
-      minSalary,
-      maxSalary,
-      sortBy,
-      sortAsc,
-      offset,
-      limit,
-    );
+    const [err, res] = await searchRequest.current.call(minSalary, maxSalary, sort, offset, limit);
     dispatch({
       type: APP_ACTIONS.SEARCH.LOADED,
       payload: {
@@ -114,8 +107,10 @@ const AppProvider = ({ children }) => {
 
   /**
    * Used to trigger async actions
+   * Wrapped in useCallback to prevent infinite rerenders on child components as it doesn't depend
+   * on any state
    */
-  const dispatchAsync = (action) => {
+  const dispatchAsync = useCallback((action) => {
     switch (action.type) {
       case APP_ACTIONS.UPLOAD_CSV.SUBMIT:
         uploadCsv(action.payload);
@@ -126,7 +121,7 @@ const AppProvider = ({ children }) => {
       default:
         dispatch(action);
     }
-  };
+  }, []);
 
   return (
     <AppContext.Provider value={{ state, dispatch, dispatchAsync }}>{children}</AppContext.Provider>

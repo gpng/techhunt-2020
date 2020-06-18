@@ -12,9 +12,28 @@ import { SEARCH } from '../../constants';
 const Dashboard = () => {
   const { t } = useTranslations();
 
-  const [minSalary, setMinSalary] = useState(SEARCH.DEFAULTS.MIN_SALARY);
-  const [maxSalary, setMaxSalary] = useState(SEARCH.DEFAULTS.MAX_SALARY);
+  // controls state of text field
+  const [minSalaryEdit, setMinSalaryEdit] = useState(SEARCH.DEFAULTS.MIN_SALARY);
+  const [maxSalaryEdit, setMaxSalaryEdit] = useState(SEARCH.DEFAULTS.MAX_SALARY);
+
+  const searchOptions = [
+    { value: '+id', label: t('dashboard.columns.id'), asc: true },
+    { value: '-id', label: t('dashboard.columns.id'), asc: false },
+    { value: '+name', label: t('dashboard.columns.name'), asc: true },
+    { value: '-name', label: t('dashboard.columns.name'), asc: false },
+    { value: '+login', label: t('dashboard.columns.login'), asc: true },
+    { value: '-login', label: t('dashboard.columns.login'), asc: false },
+    { value: '+salary', label: t('dashboard.columns.salary'), asc: true },
+    { value: '-salary', label: t('dashboard.columns.salary'), asc: false },
+  ];
+
+  // search params
+  const [salaryRange, setSalaryRange] = useState([
+    SEARCH.DEFAULTS.MIN_SALARY,
+    SEARCH.DEFAULTS.MAX_SALARY,
+  ]);
   const [page] = useState(SEARCH.DEFAULTS.PAGE);
+  const [sort, setSort] = useState(SEARCH.DEFAULTS.SORT);
 
   const {
     dispatchAsync,
@@ -23,27 +42,26 @@ const Dashboard = () => {
     },
   } = useContext(AppContext);
 
-  const handleSearch = async () => {
-    dispatchAsync({
-      type: APP_ACTIONS.SEARCH.SUBMIT,
-      payload: {
-        minSalary,
-        maxSalary,
-        sortBy: 'salary',
-        sortAsc: false,
-        offset: page * SEARCH.PAGE_SIZE,
-        limit: SEARCH.PAGE_SIZE,
-      },
-    });
+  const handleSearchClick = () => {
+    setSalaryRange([minSalaryEdit, maxSalaryEdit]);
   };
 
   // immediately retrieve first set of results on mount
   useEffect(() => {
+    const handleSearch = async () => {
+      dispatchAsync({
+        type: APP_ACTIONS.SEARCH.SUBMIT,
+        payload: {
+          minSalary: salaryRange[0],
+          maxSalary: salaryRange[1],
+          sort,
+          offset: page * SEARCH.PAGE_SIZE,
+          limit: SEARCH.PAGE_SIZE,
+        },
+      });
+    };
     handleSearch();
-    // we can ignore this dependancy array as we want to only trigger this once with the default
-    // values
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [sort, page, salaryRange, dispatchAsync]);
 
   return (
     <div className="dashboard-root">
@@ -53,26 +71,46 @@ const Dashboard = () => {
           <TextField
             label="Minimum Salary"
             type="number"
-            value={minSalary}
-            onChange={setMinSalary}
+            value={minSalaryEdit}
+            onChange={setMinSalaryEdit}
           />
         </div>
         <div>
           <TextField
             label="Maximum Salary"
             type="number"
-            value={maxSalary}
-            onChange={setMaxSalary}
+            value={maxSalaryEdit}
+            onChange={setMaxSalaryEdit}
           />
         </div>
       </section>
-      <div className="button-wrapper">
-        <button type="button" className="button-search" onClick={handleSearch}>
+      <div className="buttons-wrapper">
+        <button type="button" className="button-search" onClick={handleSearchClick}>
           {t('dashboard.buttonSearch')}
         </button>
+        <div className="sort-wrapper">
+          <span>Sort By</span>
+          <select value={sort} onChange={(ev) => setSort(ev.target.value)}>
+            {searchOptions.map((x) => (
+              <option key={x.value} value={x.value}>
+                {`${x.asc ? '⬆️' : '⬇️'} ${x.label}`}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
       <section className="section-employees">
-        <EmployeeList employees={employees} loading={loading} error={error} />
+        <EmployeeList
+          employees={employees}
+          loading={loading}
+          error={error}
+          columns={[
+            { key: 'id', label: t('dashboard.columns.id'), accessor: 'id' },
+            { key: 'name', label: t('dashboard.columns.name'), accessor: 'name' },
+            { key: 'login', label: t('dashboard.columns.login'), accessor: 'login' },
+            { key: 'salary', label: t('dashboard.columns.salary'), accessor: 'salary' },
+          ]}
+        />
       </section>
       <style jsx>{`
         .dashboard-root {
@@ -95,8 +133,19 @@ const Dashboard = () => {
           margin-right: 1rem;
         }
 
-        .button-wrapper {
+        .buttons-wrapper {
           flex: 0 0 auto;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .sort-wrapper > span {
+          margin-right: 0.5rem;
+        }
+
+        .sort-options {
+          display: flex;
         }
 
         .button-search {

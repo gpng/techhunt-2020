@@ -30,13 +30,13 @@ export class PostCSV extends AxioRequest {
 }
 
 export class SearchEmployees extends AxioRequest {
-  async call(minSalary, maxSalary, sortBy, sortAsc, offset, limit) {
+  async call(minSalary, maxSalary, sort, offset, limit) {
     const uri = `${API_HOST}/users`;
 
     const params = {
       minSalary,
       maxSalary,
-      sort: `${sortAsc ? '+' : '-'}${sortBy}`,
+      sort,
       offset,
       limit,
     };

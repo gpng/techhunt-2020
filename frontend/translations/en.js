@@ -11,6 +11,13 @@ const strings = {
   dashboard: {
     title: 'Employees',
     buttonSearch: 'Search Employees',
+    columns: {
+      id: 'ID',
+      name: 'Name',
+      login: 'Login',
+      salary: 'Salary',
+      actions: 'Actions',
+    },
   },
 };
 export default strings;

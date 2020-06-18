@@ -16,5 +16,6 @@ export const SEARCH = {
     MIN_SALARY: 0,
     MAX_SALARY: 5000,
     PAGE: 0,
+    SORT: '+id',
   },
 };
