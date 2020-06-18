@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 // components
 import { Delete, Edit } from '../General/Icons';
 import IconButton from '../General/Buttons/IconButton';
+import { Spinner } from '../General/Animations';
 
-const EmployeeList = ({ employees, columns, actionLabel }) => {
+const EmployeeList = ({ loading, employees, columns, actionLabel, error }) => {
   return (
     <div className="employee-list-root">
       <table className="table-body">
@@ -36,6 +37,15 @@ const EmployeeList = ({ employees, columns, actionLabel }) => {
           ))}
         </tbody>
       </table>
+      <div className="messages">
+        {error && <div className="error">{error}</div>}
+        {loading && (
+          <div className="loading-wrapper">
+            <Spinner width="3rem" />
+          </div>
+        )}
+        {!loading && !error && !employees.length && <div>No results!</div>}
+      </div>
       <style jsx>{`
         .employee-list-root {
           height: 100%;
@@ -77,6 +87,14 @@ const EmployeeList = ({ employees, columns, actionLabel }) => {
           display: flex;
           align-items: center;
         }
+
+        .messages {
+          padding: 0 1rem;
+        }
+
+        .error {
+          color: red;
+        }
       `}</style>
     </div>
   );
@@ -84,6 +102,8 @@ const EmployeeList = ({ employees, columns, actionLabel }) => {
 
 EmployeeList.defaultProps = {
   employees: [],
+  loading: false,
+  error: null,
 };
 
 EmployeeList.propTypes = {
@@ -96,6 +116,8 @@ EmployeeList.propTypes = {
     }),
   ).isRequired,
   actionLabel: PropTypes.string.isRequired,
+  loading: PropTypes.bool,
+  error: PropTypes.string,
 };
 
 export default EmployeeList;
