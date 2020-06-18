@@ -13,12 +13,15 @@ const Header = () => {
       <style jsx>{`
         .header-root {
           background: ${COLORS.BACKGROUND_DARK_PRIMARY};
-          height: 100%;
+          height: 3rem;
           width: 100%;
           display: flex;
           justify-content: space-between;
           align-items: center;
           padding: 0 1rem;
+          position: fixed;
+          top: 0;
+          left: 0;
         }
       `}</style>
     </nav>
