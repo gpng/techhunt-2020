@@ -13,6 +13,7 @@ require (
 	github.com/go-playground/validator/v10 v10.3.0
 	github.com/gofrs/uuid v3.3.0+incompatible
 	github.com/google/go-cmp v0.5.0
+	github.com/google/uuid v1.1.1
 	github.com/jinzhu/gorm v1.9.13
 	github.com/joho/godotenv v1.3.0
 	github.com/swaggo/http-swagger v0.0.0-20200308142732-58ac5e232fba

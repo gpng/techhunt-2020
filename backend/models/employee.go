@@ -3,6 +3,8 @@ package models
 import (
 	"fmt"
 
+	"github.com/google/uuid"
+	c "github.com/gpng/techhunt-2020/backend/constants"
 	u "github.com/gpng/techhunt-2020/backend/utils/utils"
 	"github.com/jinzhu/gorm"
 )
@@ -33,6 +35,17 @@ func (employee *Employee) Save(db *gorm.DB) error {
 		u.LogError(err)
 	}
 	return err
+}
+
+// GetEmployeesByLogin from db
+func GetEmployeesByLogin(db *gorm.DB, logins []string) ([]Employee, error) {
+	employees := []Employee{}
+	err := db.Where("login in (?)", logins).Find(&employees).Error
+	if err != nil && !gorm.IsRecordNotFoundError(err) {
+		u.LogError(err)
+		return nil, err
+	}
+	return employees, nil
 }
 
 // Possible values for sort column names
@@ -66,6 +79,35 @@ func (sb SortBy) IsValid() error {
 // BulkUpsertEmployees in a db transaction
 func BulkUpsertEmployees(db *gorm.DB, employees []Employee) error {
 	return db.Transaction(func(tx *gorm.DB) error {
+		// lookup every login to see if there are duplicates
+		logins := []string{}
+		// count each new logins, if there are duplicated new logins then it cannot be resolved
+		loginsMap := map[string]string{}
+		for _, employee := range employees {
+			if _, ok := loginsMap[employee.Login]; ok {
+				return fmt.Errorf(c.ErrStringDbDuplicateEmployeeLogin)
+			}
+			loginsMap[employee.Login] = employee.ID
+			logins = append(logins, employee.Login)
+		}
+
+		// the target employees that will have their logins replaced
+		toBeReplaced, err := GetEmployeesByLogin(db, logins)
+		if err != nil {
+			return err
+		}
+
+		// update all target employees with uuid logins, to prevent collisions
+		for _, employee := range toBeReplaced {
+			temp := employee
+			temp.Login = uuid.New().String()
+			if err := temp.Save(tx); err != nil {
+				u.LogError(err)
+				return err
+			}
+		}
+
+		// now we can update all the affected employees
 		for _, employee := range employees {
 			if err := employee.Save(tx); err != nil {
 				u.LogError(err)
