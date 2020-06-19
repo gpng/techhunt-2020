@@ -47,6 +47,7 @@ const (
 const (
 	ErrInternalServerError  = 500
 	ErrUnauthorizedResource = 501
+	ErrServerBusy           = 502
 )
 
 // 6xx - 3rd party error
@@ -79,4 +80,5 @@ const (
 	ErrStringCsvNoData           = "No data found in csv"
 	ErrStringCsvIncorrectColumns = "Incorrect number of columns found"
 	ErrStringCsvInvalidSalary    = "Invalid salary found"
+	ErrStringsCsvUploading       = "Another upload is taking place"
 )

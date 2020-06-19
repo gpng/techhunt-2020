@@ -2,8 +2,10 @@ package usersvc
 
 import (
 	"bytes"
+	"fmt"
 	"io"
 	"net/http"
+	"time"
 
 	c "github.com/gpng/techhunt-2020/backend/constants"
 	"github.com/gpng/techhunt-2020/backend/models"
@@ -54,6 +56,20 @@ func (s *Service) handleSearch() http.HandlerFunc {
 // @Router /users/upload [post]
 func (s *Service) handleUpload() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		// check if another upload is taking place
+		if s.isUploading {
+			s.render.RespondWithStatus(w, r, http.StatusConflict,
+				s.render.ErrorMessage(c.ErrServerBusy, fmt.Errorf(c.ErrStringsCsvUploading), c.ErrStringsCsvUploading),
+			)
+			return
+		}
+
+		// set isUploading status to true to prevent other uploads
+		s.isUploading = true
+
+		// delay for testing
+		time.Sleep(10 * time.Second)
+
 		file, _, err := r.FormFile("file")
 		defer file.Close()
 		if err != nil {
@@ -61,6 +77,7 @@ func (s *Service) handleUpload() http.HandlerFunc {
 			s.render.RespondWithStatus(w, r, http.StatusBadRequest,
 				s.render.ErrorMessage(c.ErrInvalidFile, err, "Invalid file"),
 			)
+			return
 		}
 
 		var buffer bytes.Buffer
@@ -86,6 +103,7 @@ func (s *Service) handleUpload() http.HandlerFunc {
 			return
 		}
 
+		s.isUploading = false
 		s.render.Respond(w, r, s.render.Message(true, "Employees updated successfully"))
 	}
 }

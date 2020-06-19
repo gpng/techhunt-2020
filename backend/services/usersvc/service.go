@@ -8,9 +8,10 @@ import (
 
 // Service struct
 type Service struct {
-	db        *gorm.DB
-	validator *vr.Validator
-	render    *render.Render
+	db          *gorm.DB
+	validator   *vr.Validator
+	render      *render.Render
+	isUploading bool
 }
 
 // New service
@@ -23,5 +24,6 @@ func New(
 		db,
 		validator,
 		render,
+		false,
 	}
 }
