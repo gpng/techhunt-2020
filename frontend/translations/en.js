@@ -21,6 +21,10 @@ const strings = {
       salary: 'Salary',
       actions: 'Actions',
     },
+    pagination: {
+      nextPage: 'Next',
+      prevPage: 'Prev',
+    },
   },
 };
 export default strings;
