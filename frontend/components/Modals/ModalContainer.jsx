@@ -24,8 +24,8 @@ const ModalContainer = () => {
   });
 
   return openModal ? (
-    <div className="modal-container-root">
-      <section ref={contentRef} className="modal-content">
+    <div className="modal-container-root" data-testid="modal-container-root">
+      <section ref={contentRef} className="modal-content" data-testid="modal-content">
         {
           {
             [MODALS.UPLOAD_CSV]: <Upload />,

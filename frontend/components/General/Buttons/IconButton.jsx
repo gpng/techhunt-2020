@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 
 const IconButton = ({ onClick, icon, width }) => {
   return (
-    <button type="button" className="icon-button-root" onClick={onClick}>
+    <button
+      type="button"
+      className="icon-button-root"
+      onClick={onClick}
+      data-testid="icon-button-root"
+    >
       {icon}
       <style jsx>{`
         .icon-button-root {

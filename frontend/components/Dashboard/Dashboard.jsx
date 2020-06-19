@@ -85,12 +85,21 @@ const Dashboard = () => {
         </div>
       </section>
       <div className="buttons-wrapper">
-        <button type="button" className="button-search" onClick={handleSearchClick}>
+        <button
+          type="button"
+          className="button-search"
+          onClick={handleSearchClick}
+          data-testid="button-search"
+        >
           {t('dashboard.buttonSearch')}
         </button>
         <div className="sort-wrapper">
           <span>{t('dashboard.sortBy')}</span>
-          <select value={sort} onChange={(ev) => setSort(ev.target.value)}>
+          <select
+            value={sort}
+            onChange={(ev) => setSort(ev.target.value)}
+            data-testid="select-sort"
+          >
             {searchOptions.map((x) => (
               <option key={x.value} value={x.value}>
                 {`${x.asc ? '⬆️' : '⬇️'} ${x.label}`}

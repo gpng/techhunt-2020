@@ -1,0 +1,154 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should match default snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="jsx-2616149830 drawer-slider-root"
+  >
+    <button
+      class="jsx-2616149830 button-menu"
+      data-testid="button-menu"
+      type="button"
+    >
+      <svg
+        height="24"
+        viewBox="0 0 24 24"
+        width="1rem"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M0 0h24v24H0z"
+          fill="none"
+        />
+        <path
+          d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
+          fill="#f0f0f0"
+        />
+      </svg>
+    </button>
+    <div
+      class="jsx-2616149830 drawer-slider-container"
+    >
+      <aside
+        class="jsx-3606731684 drawer-root"
+      >
+        <div
+          class="jsx-1818524733 avatar-root"
+        />
+        <div
+          class="jsx-3606731684 button-container"
+        >
+          <button
+            class="jsx-3606731684 button-function"
+            type="button"
+          >
+            Upload CSV
+          </button>
+        </div>
+      </aside>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`should match default snapshot after close: should match default snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="jsx-2616149830 drawer-slider-root"
+  >
+    <button
+      class="jsx-2616149830 button-menu"
+      data-testid="button-menu"
+      type="button"
+    >
+      <svg
+        height="24"
+        viewBox="0 0 24 24"
+        width="1rem"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M0 0h24v24H0z"
+          fill="none"
+        />
+        <path
+          d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
+          fill="#f0f0f0"
+        />
+      </svg>
+    </button>
+    <div
+      class="jsx-2616149830 drawer-slider-container"
+    >
+      <aside
+        class="jsx-3606731684 drawer-root"
+      >
+        <div
+          class="jsx-1818524733 avatar-root"
+        />
+        <div
+          class="jsx-3606731684 button-container"
+        >
+          <button
+            class="jsx-3606731684 button-function"
+            type="button"
+          >
+            Upload CSV
+          </button>
+        </div>
+      </aside>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`should match open snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="jsx-2616149830 drawer-slider-root"
+  >
+    <button
+      class="jsx-2616149830 button-menu"
+      data-testid="button-menu"
+      type="button"
+    >
+      <svg
+        height="24"
+        viewBox="0 0 24 24"
+        width="1rem"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M0 0h24v24H0z"
+          fill="none"
+        />
+        <path
+          d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
+          fill="#f0f0f0"
+        />
+      </svg>
+    </button>
+    <div
+      class="jsx-2616149830 drawer-slider-container drawer-slider-container--open"
+    >
+      <aside
+        class="jsx-3606731684 drawer-root"
+      >
+        <div
+          class="jsx-1818524733 avatar-root"
+        />
+        <div
+          class="jsx-3606731684 button-container"
+        >
+          <button
+            class="jsx-3606731684 button-function"
+            type="button"
+          >
+            Upload CSV
+          </button>
+        </div>
+      </aside>
+    </div>
+  </div>
+</DocumentFragment>
+`;

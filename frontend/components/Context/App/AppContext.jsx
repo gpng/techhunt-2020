@@ -81,44 +81,50 @@ const AppProvider = ({ children }) => {
   // store the last search params so we can easily refresh search
   const searchParamsRef = useRef(null);
 
-  const searchEmployees = async ({ minSalary, maxSalary, sort, offset, limit }) => {
-    searchParamsRef.current = { minSalary, maxSalary, sort, offset, limit };
-    searchRequest.current.refresh();
-    dispatch({ type: APP_ACTIONS.SEARCH.LOADING });
-    const [err, res] = await searchRequest.current.call(minSalary, maxSalary, sort, offset, limit);
-    dispatch({
-      type: APP_ACTIONS.SEARCH.LOADED,
-      payload: {
-        results: res?.results ?? [],
-        success: !err,
-        error: err,
-      },
-    });
-  };
-
-  const uploadCsv = async (file) => {
-    postCsvRequest.current.refresh();
-    dispatch({ type: APP_ACTIONS.UPLOAD_CSV.LOADING });
-    const [err] = await postCsvRequest.current.call(file);
-    dispatch({
-      type: APP_ACTIONS.UPLOAD_CSV.LOADED,
-      payload: {
-        success: !err,
-        error: err,
-      },
-    });
-    // refresh search
-    if (searchParamsRef.current) {
-      searchEmployees(searchParamsRef.current);
-    }
-  };
-
   /**
    * Used to trigger async actions
    * Wrapped in useCallback to prevent infinite rerenders on child components as it doesn't depend
    * on any state
    */
   const dispatchAsync = useCallback((action) => {
+    const searchEmployees = async ({ minSalary, maxSalary, sort, offset, limit }) => {
+      searchParamsRef.current = { minSalary, maxSalary, sort, offset, limit };
+      searchRequest.current.refresh();
+      dispatch({ type: APP_ACTIONS.SEARCH.LOADING });
+      const [err, res] = await searchRequest.current.call(
+        minSalary,
+        maxSalary,
+        sort,
+        offset,
+        limit,
+      );
+      dispatch({
+        type: APP_ACTIONS.SEARCH.LOADED,
+        payload: {
+          results: res?.results ?? [],
+          success: !err,
+          error: err,
+        },
+      });
+    };
+
+    const uploadCsv = async (file) => {
+      postCsvRequest.current.refresh();
+      dispatch({ type: APP_ACTIONS.UPLOAD_CSV.LOADING });
+      const [err] = await postCsvRequest.current.call(file);
+      dispatch({
+        type: APP_ACTIONS.UPLOAD_CSV.LOADED,
+        payload: {
+          success: !err,
+          error: err,
+        },
+      });
+      // refresh search
+      if (searchParamsRef.current) {
+        searchEmployees(searchParamsRef.current);
+      }
+    };
+
     switch (action.type) {
       case APP_ACTIONS.UPLOAD_CSV.SUBMIT:
         uploadCsv(action.payload);

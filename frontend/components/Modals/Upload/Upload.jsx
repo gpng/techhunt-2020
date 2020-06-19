@@ -25,17 +25,25 @@ const Upload = () => {
 
   return (
     <ModalLayout title={t('upload.title')}>
-      <div className="upload-root">
-        {!loading && <input type="file" id="input-file" accept=".csv" onChange={handleChange} />}
+      <div className="upload-root" data-testid="upload-root">
+        {!loading && (
+          <input type="file" accept=".csv" onChange={handleChange} data-testid="input-file" />
+        )}
         {loading && (
-          <div>
+          <div data-testid="spinner">
             <Spinner width="3rem" />
           </div>
         )}
         {!loading && success && (
-          <div className="message message--success">{t('upload.success')}</div>
+          <div className="message message--success" data-testid="success">
+            {t('upload.success')}
+          </div>
         )}
-        {!loading && error && <div className="message message--error">{error}</div>}
+        {!loading && error && (
+          <div className="message message--error" data-testid="error">
+            {error}
+          </div>
+        )}
         <style jsx>{`
           .upload-root {
           }

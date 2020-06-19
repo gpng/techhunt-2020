@@ -3,13 +3,15 @@
   "extends": ["airbnb", "prettier", "prettier/react"],
   "plugins": ["prettier", "react-hooks"],
   "env": {
-    "browser": true
+    "browser": true,
+    "jest": true
   },
   "rules": {
     "prettier/prettier": ["warn"],
     "react/forbid-prop-types": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
-    "react/jsx-fragments": "off"
+    "react/jsx-fragments": "off",
+    "react/react-in-jsx-scope": "off"
   }
 }
