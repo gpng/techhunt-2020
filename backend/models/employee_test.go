@@ -1,8 +1,10 @@
+// test only complex sql queries to ensure that the generated query matches what we need
+// unecessary for simple update/insert
+
 package models_test
 
 import (
 	"fmt"
-	"log"
 	"regexp"
 	"testing"
 
@@ -47,31 +49,42 @@ func TestEmployeeSearch(t *testing.T) {
 		OFFSET %d
 	`
 
-	searchParams := models.EmployeeSearch{
-		MinSalary: 0,
-		MaxSalary: 5000,
-		Offset:    0,
-		Limit:     30,
-		SortBy:    models.SortID,
-		SortAsc:   true,
+	testCases := []models.EmployeeSearch{
+		{
+			MinSalary: 0,
+			MaxSalary: 5000,
+			Offset:    0,
+			Limit:     30,
+			SortBy:    models.SortID,
+			SortAsc:   true,
+		}, {
+			MinSalary: 5000,
+			MaxSalary: 10000,
+			Offset:    5,
+			Limit:     30,
+			SortBy:    models.SortLogin,
+			SortAsc:   false,
+		},
 	}
-	order := "ASC"
-	if !searchParams.SortAsc {
-		order = "DESC"
-	}
-	mock.ExpectQuery(regexp.QuoteMeta(fmt.Sprintf(
-		searchQuery,
-		searchParams.MinSalary,
-		searchParams.MaxSalary,
-		searchParams.SortBy,
-		order,
-		searchParams.Limit,
-		searchParams.Offset,
-	))).WillReturnRows(rows)
 
-	res, err := searchParams.Search(db)
-	if err != nil {
-		t.Errorf("Expected no error but got %v", err)
+	for _, tc := range testCases {
+		order := "ASC"
+		if !tc.SortAsc {
+			order = "DESC"
+		}
+		mock.ExpectQuery(regexp.QuoteMeta(fmt.Sprintf(
+			searchQuery,
+			tc.MinSalary,
+			tc.MaxSalary,
+			tc.SortBy,
+			order,
+			tc.Limit,
+			tc.Offset,
+		))).WillReturnRows(rows)
+
+		_, err = tc.Search(db)
+		if err != nil {
+			t.Errorf("Expected no error but got %v", err)
+		}
 	}
-	log.Println(res)
 }
