@@ -4,6 +4,7 @@ import AppContext, { APP_ACTIONS } from '../Context/App/AppContext';
 // components
 import TextField from '../General/Inputs/TextField';
 import EmployeeList from './EmployeeList';
+import Pagination from './Pagination';
 // tanslations
 import useTranslations from '../../translations/useTranslations';
 // constants
@@ -32,7 +33,7 @@ const Dashboard = () => {
     SEARCH.DEFAULTS.MIN_SALARY,
     SEARCH.DEFAULTS.MAX_SALARY,
   ]);
-  const [page] = useState(SEARCH.DEFAULTS.PAGE);
+  const [page, setPage] = useState(SEARCH.DEFAULTS.PAGE);
   const [sort, setSort] = useState(SEARCH.DEFAULTS.SORT);
 
   const {
@@ -44,6 +45,7 @@ const Dashboard = () => {
 
   const handleSearchClick = () => {
     setSalaryRange([minSalaryEdit, maxSalaryEdit]);
+    setPage(0);
   };
 
   // immediately retrieve first set of results on mount
@@ -108,6 +110,16 @@ const Dashboard = () => {
           </select>
         </div>
       </div>
+      <div className="pagination-wrapper">
+        <Pagination
+          prevLabel={t('dashboard.pagination.prevPage')}
+          nextLabel={t('dashboard.pagination.nextPage')}
+          min={page * SEARCH.PAGE_SIZE}
+          max={page * SEARCH.PAGE_SIZE + employees.length}
+          onPrevClick={page > 0 ? () => setPage(page - 1) : undefined}
+          onNextClick={employees.length === SEARCH.PAGE_SIZE ? () => setPage(page + 1) : undefined}
+        />
+      </div>
       <section className="section-employees">
         <EmployeeList
           employees={employees}
@@ -164,6 +176,10 @@ const Dashboard = () => {
 
         .section-employees {
           flex: 1 1 auto;
+          margin-top: 1rem;
+        }
+
+        .pagination-wrapper {
           margin-top: 1rem;
         }
 

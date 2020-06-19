@@ -15,13 +15,15 @@ const defaultPayload = {
   limit: SEARCH.PAGE_SIZE,
 };
 
+const defaultAppState = {
+  search: { employees: [], loading: false, success: false, error: null },
+};
+
 it('should render', () => {
   renderWithCustomAppContext(<Dashboard />, {
     value: {
       dispatchAsync: () => {},
-      state: {
-        search: {},
-      },
+      state: defaultAppState,
     },
   });
 });
@@ -32,7 +34,9 @@ it('should dispatch search action on mount', () => {
     value: {
       dispatchAsync: mockDispatchAsync,
       state: {
-        search: {},
+        search: {
+          employees: [],
+        },
       },
     },
   });
@@ -48,9 +52,7 @@ it('should dispatch search action on button click', () => {
   const { getByTestId } = renderWithCustomAppContext(<Dashboard />, {
     value: {
       dispatchAsync: mockDispatchAsync,
-      state: {
-        search: {},
-      },
+      state: defaultAppState,
     },
   });
   fireEvent.click(getByTestId('button-search'));
@@ -66,9 +68,7 @@ it('should dispatch search action on sort change', () => {
   const { getByTestId } = renderWithCustomAppContext(<Dashboard />, {
     value: {
       dispatchAsync: mockDispatchAsync,
-      state: {
-        search: {},
-      },
+      state: defaultAppState,
     },
   });
   const sort = '-login';

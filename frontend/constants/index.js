@@ -11,7 +11,7 @@ export const MODALS = {
 };
 
 export const SEARCH = {
-  PAGE_SIZE: 30,
+  PAGE_SIZE: 5,
   DEFAULTS: {
     MIN_SALARY: 0,
     MAX_SALARY: 5000,
