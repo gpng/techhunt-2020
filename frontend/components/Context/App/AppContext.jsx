@@ -78,20 +78,11 @@ const AppProvider = ({ children }) => {
   const postCsvRequest = useRef(new PostCSV());
   const searchRequest = useRef(new SearchEmployees());
 
-  const uploadCsv = async (file) => {
-    postCsvRequest.current.refresh();
-    dispatch({ type: APP_ACTIONS.UPLOAD_CSV.LOADING });
-    const [err] = await postCsvRequest.current.call(file);
-    dispatch({
-      type: APP_ACTIONS.UPLOAD_CSV.LOADED,
-      payload: {
-        success: !err,
-        error: err,
-      },
-    });
-  };
+  // store the last search params so we can easily refresh search
+  const searchParamsRef = useRef(null);
 
   const searchEmployees = async ({ minSalary, maxSalary, sort, offset, limit }) => {
+    searchParamsRef.current = { minSalary, maxSalary, sort, offset, limit };
     searchRequest.current.refresh();
     dispatch({ type: APP_ACTIONS.SEARCH.LOADING });
     const [err, res] = await searchRequest.current.call(minSalary, maxSalary, sort, offset, limit);
@@ -103,6 +94,23 @@ const AppProvider = ({ children }) => {
         error: err,
       },
     });
+  };
+
+  const uploadCsv = async (file) => {
+    postCsvRequest.current.refresh();
+    dispatch({ type: APP_ACTIONS.UPLOAD_CSV.LOADING });
+    const [err] = await postCsvRequest.current.call(file);
+    dispatch({
+      type: APP_ACTIONS.UPLOAD_CSV.LOADED,
+      payload: {
+        success: !err,
+        error: err,
+      },
+    });
+    // refresh search
+    if (searchParamsRef.current) {
+      searchEmployees(searchParamsRef.current);
+    }
   };
 
   /**
