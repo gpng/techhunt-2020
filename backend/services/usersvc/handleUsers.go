@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"time"
 
 	c "github.com/gpng/techhunt-2020/backend/constants"
 	"github.com/gpng/techhunt-2020/backend/models"
@@ -66,9 +65,6 @@ func (s *Service) handleUpload() http.HandlerFunc {
 
 		// set isUploading status to true to prevent other uploads
 		s.isUploading = true
-
-		// delay for testing
-		time.Sleep(10 * time.Second)
 
 		file, _, err := r.FormFile("file")
 		defer file.Close()
