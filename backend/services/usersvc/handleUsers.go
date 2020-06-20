@@ -73,6 +73,7 @@ func (s *Service) handleUpload() http.HandlerFunc {
 			s.render.RespondWithStatus(w, r, http.StatusBadRequest,
 				s.render.ErrorMessage(c.ErrInvalidFile, err, "Invalid file"),
 			)
+			s.isUploading = false
 			return
 		}
 
@@ -84,6 +85,7 @@ func (s *Service) handleUpload() http.HandlerFunc {
 			s.render.RespondWithStatus(w, r, http.StatusBadRequest,
 				s.render.ErrorMessage(c.ErrCsvInvalid, err, err.Error()),
 			)
+			s.isUploading = false
 			return
 		}
 
@@ -96,6 +98,7 @@ func (s *Service) handleUpload() http.HandlerFunc {
 			s.render.RespondWithStatus(w, r, http.StatusBadRequest,
 				s.render.ErrorMessage(c.ErrDbUpdateFailed, err, message),
 			)
+			s.isUploading = false
 			return
 		}
 
