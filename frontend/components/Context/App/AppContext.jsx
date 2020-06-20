@@ -43,7 +43,21 @@ const reducer = (state, action) => {
     case APP_ACTIONS.MODAL_OPEN:
       return { ...state, modal: action.payload };
     case APP_ACTIONS.MODAL_CLOSE:
-      return { ...state, modal: { name: null, value: null } };
+      return {
+        ...state,
+        modal: { name: null, value: null },
+        upload: {
+          loading: false,
+          success: false,
+          error: null,
+        },
+        delete: {
+          id: null,
+          loading: false,
+          success: false,
+          error: null,
+        },
+      };
     // uploading csv
     case APP_ACTIONS.UPLOAD_CSV.LOADING:
       return { ...state, upload: { loading: true, success: false, error: null } };
