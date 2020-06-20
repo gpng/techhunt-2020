@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-import { render, cleanup } from '@testing-library/react';
+import { render, cleanup, fireEvent } from '@testing-library/react';
 import EmployeeList from './EmployeeList';
 
 afterEach(cleanup);
@@ -19,6 +19,7 @@ const requiredProps = {
       accessor: 'name',
     },
   ],
+  onClickDelete: () => {},
 };
 
 it('should render', () => {
@@ -56,4 +57,31 @@ it('should have correct number of employees', () => {
   expect(getAllByTestId('employee-cells')).toHaveLength(
     employees.length * requiredProps.columns.length,
   );
+});
+
+it('it should have a delete button for each employee', () => {
+  const employees = [
+    { id: 'id1', name: 'name1' },
+    { id: 'id2', name: 'name2' },
+  ];
+  const { queryByTestId } = render(<EmployeeList {...requiredProps} employees={employees} />);
+  employees.forEach((x) => {
+    expect(queryByTestId(`button-delete-wrapper-${x.id}`)).toBeTruthy();
+  });
+});
+
+it('it should fire onClickDelete with correct id for each employee', () => {
+  const employees = [
+    { id: 'id1', name: 'name1' },
+    { id: 'id2', name: 'name2' },
+  ];
+  const mockOnClickDelete = jest.fn();
+  const { getByTestId } = render(
+    <EmployeeList {...requiredProps} employees={employees} onClickDelete={mockOnClickDelete} />,
+  );
+  employees.forEach((x) => {
+    fireEvent.click(getByTestId(`button-delete-wrapper-${x.id}`).querySelector('button'));
+    expect(mockOnClickDelete).toBeCalledWith(x.id);
+  });
+  expect(mockOnClickDelete).toBeCalledTimes(employees.length);
 });

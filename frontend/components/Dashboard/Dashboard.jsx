@@ -8,8 +8,8 @@ import Pagination from './Pagination';
 // tanslations
 import useTranslations from '../../translations/useTranslations';
 // constants
-import { SEARCH, BREAKPOINTS } from '../../constants';
-import { submitSearch } from '../../actions/creators';
+import { SEARCH, BREAKPOINTS, MODALS } from '../../constants';
+import { submitSearch, openModal } from '../../actions/creators';
 
 const Dashboard = () => {
   const { t } = useTranslations();
@@ -39,6 +39,7 @@ const Dashboard = () => {
 
   const {
     dispatchAsync,
+    dispatch,
     state: {
       search: { employees, loading, error },
     },
@@ -47,6 +48,10 @@ const Dashboard = () => {
   const handleSearchClick = () => {
     setSalaryRange([minSalaryEdit, maxSalaryEdit]);
     setPage(0);
+  };
+
+  const handleDeleteClick = (id) => {
+    dispatch(openModal(MODALS.DELETE, id));
   };
 
   // immediately retrieve first set of results on mount
@@ -132,6 +137,7 @@ const Dashboard = () => {
             { key: 'salary', label: t('dashboard.columns.salary'), accessor: 'salary' },
           ]}
           actionLabel={t('dashboard.columns.actions')}
+          onClickDelete={handleDeleteClick}
         />
       </section>
       <style jsx>{`

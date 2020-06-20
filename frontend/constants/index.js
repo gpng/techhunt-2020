@@ -8,6 +8,7 @@ export const BREAKPOINTS = {
 
 export const MODALS = {
   UPLOAD_CSV: 'upload_csv',
+  DELETE: 'delete_employee',
 };
 
 export const SEARCH = {

@@ -6,7 +6,6 @@ import AxioRequest from './Request';
 // constants
 import { API_HOST } from '../../constants';
 
-// eslint-disable-next-line import/prefer-default-export
 export class PostCSV extends AxioRequest {
   async call(csvFile) {
     const uri = `${API_HOST}/users/upload`;
@@ -44,6 +43,22 @@ export class SearchEmployees extends AxioRequest {
     const [err, res] = await to(
       axios.get(uri, {
         params,
+        cancelToken: this.getCancelToken(),
+      }),
+    );
+    if (!err && res.status === 200 && res.data) {
+      return [null, res.data];
+    }
+    return [err?.response?.data?.message ?? 'server error', null];
+  }
+}
+
+export class DeleteEmployee extends AxioRequest {
+  async call(id) {
+    const uri = `${API_HOST}/users/${id}`;
+
+    const [err, res] = await to(
+      axios.delete(uri, {
         cancelToken: this.getCancelToken(),
       }),
     );

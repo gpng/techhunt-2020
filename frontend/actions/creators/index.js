@@ -11,11 +11,19 @@ export const APP_ACTIONS = {
     LOADING: 'search_loading',
     LOADED: 'search_loaded',
   },
+  DELETE: {
+    SUBMIT: 'delete_submit',
+    LOADING: 'delete_loading',
+    LOADED: 'delete_loaded',
+  },
 };
 
 export const closeModal = () => ({ type: APP_ACTIONS.MODAL_CLOSE });
 
-export const openModal = (modal) => ({ type: APP_ACTIONS.MODAL_OPEN, payload: modal });
+export const openModal = (name, value) => ({
+  type: APP_ACTIONS.MODAL_OPEN,
+  payload: { name, value },
+});
 
 export const submitUploadCSV = (file) => ({
   type: APP_ACTIONS.UPLOAD_CSV.SUBMIT,
@@ -47,6 +55,23 @@ export const loadedSearch = (results, success, error) => ({
   type: APP_ACTIONS.SEARCH.LOADED,
   payload: {
     results,
+    success,
+    error,
+  },
+});
+
+export const submitDelete = (id) => ({
+  type: APP_ACTIONS.DELETE.SUBMIT,
+  payload: id,
+});
+
+export const loadingDelete = () => ({
+  type: APP_ACTIONS.DELETE.LOADING,
+});
+
+export const loadedDelete = (success, error) => ({
+  type: APP_ACTIONS.DELETE.LOADED,
+  payload: {
     success,
     error,
   },

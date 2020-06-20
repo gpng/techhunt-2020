@@ -3,6 +3,7 @@ import React, { useContext, useRef } from 'react';
 import AppContext from '../Context/App/AppContext';
 // components
 import Upload from './Upload/Upload';
+import Delete from './Delete/Delete';
 // utils
 import { useOnClickOutside } from '../../utils/hooks';
 // actions
@@ -13,25 +14,28 @@ import { MODALS } from '../../constants';
 
 const ModalContainer = () => {
   const {
-    state: { openModal },
+    state: {
+      modal: { name },
+    },
     dispatch,
   } = useContext(AppContext);
 
   const contentRef = useRef(null);
 
   useOnClickOutside(contentRef, () => {
-    if (openModal) {
+    if (name) {
       dispatch(closeModal());
     }
   });
 
-  return openModal ? (
+  return name ? (
     <div className="modal-container-root" data-testid="modal-container-root">
       <section ref={contentRef} className="modal-content" data-testid="modal-content">
         {
           {
             [MODALS.UPLOAD_CSV]: <Upload />,
-          }[openModal]
+            [MODALS.DELETE]: <Delete />,
+          }[name]
         }
       </section>
       <style jsx>{`

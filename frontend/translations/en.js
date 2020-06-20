@@ -1,4 +1,8 @@
 const strings = {
+  prompts: {
+    confirm: 'Confirm',
+    cancel: 'Cancel',
+  },
   drawer: {
     functions: {
       uploadCSV: 'Upload CSV',
@@ -7,6 +11,12 @@ const strings = {
   upload: {
     title: 'Upload CSV',
     success: 'Successfully upload employee data!',
+  },
+  delete: {
+    title: 'Remove Employee',
+    employeeId: 'Removing Employee with id: ',
+    message: 'Are you sure?',
+    success: 'Deleted successfully!',
   },
   dashboard: {
     title: 'Employees',

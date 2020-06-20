@@ -2,8 +2,8 @@ import React from 'react';
 import { cleanup, fireEvent } from '@testing-library/react';
 import { renderWithCustomAppContext } from '../../utils/tests';
 import Dashboard from './Dashboard';
-import { SEARCH } from '../../constants';
-import { submitSearch } from '../../actions/creators';
+import { SEARCH, MODALS } from '../../constants';
+import { submitSearch, openModal } from '../../actions/creators';
 
 afterEach(cleanup);
 
@@ -95,4 +95,26 @@ it('should dispatch search action on sort change', () => {
       defaultPayload.limit,
     ),
   );
+});
+
+it('should dispatch open delete modal on delete click', () => {
+  const mockDispatch = jest.fn();
+  const employees = [
+    {
+      id: 'testid1',
+    },
+    { id: 'testid2' },
+  ];
+  const { getByTestId } = renderWithCustomAppContext(<Dashboard />, {
+    value: {
+      dispatch: mockDispatch,
+      dispatchAsync: () => {},
+      state: { search: { employees, loading: false, success: false, error: null } },
+    },
+  });
+  employees.forEach((x) => {
+    fireEvent.click(getByTestId(`button-delete-wrapper-${x.id}`).querySelector('button'));
+    expect(mockDispatch).toBeCalledWith(openModal(MODALS.DELETE, x.id));
+  });
+  expect(mockDispatch).toBeCalledTimes(employees.length);
 });
