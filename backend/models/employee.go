@@ -18,6 +18,13 @@ type Employee struct {
 	Salary float64 `json:"salary" gorm:"not null" validate:"required,number"`
 }
 
+// EmployeeUpdate params
+type EmployeeUpdate struct {
+	Login  string  `json:"login" validate:"required"`
+	Name   string  `json:"name" validate:"required"`
+	Salary float64 `json:"salary" gorm:"not null" validate:"required,number"`
+}
+
 // EmployeeSearch params for searching employees in db
 type EmployeeSearch struct {
 	MinSalary int
@@ -76,6 +83,16 @@ func (employee *Employee) Delete(db *gorm.DB) error {
 		u.LogError(err)
 	}
 	return err
+}
+
+// GetEmployeeByID from db
+func GetEmployeeByID(db *gorm.DB, id string) (Employee, error) {
+	employee := Employee{}
+	err := db.Where("id = ?", id).First(&employee).Error
+	if err != nil && !gorm.IsRecordNotFoundError(err) {
+		u.LogError(err)
+	}
+	return employee, err
 }
 
 // GetEmployeesByLogin from db

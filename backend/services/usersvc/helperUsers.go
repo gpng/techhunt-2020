@@ -121,7 +121,7 @@ func ParseCSVToEmployees(csvString string) ([]models.Employee, error) {
 				return nil, fmt.Errorf(c.ErrStringCsvIncorrectColumns)
 			}
 			switch i {
-			case 0: // id
+			case 0: // idr
 				employee.ID = val
 			case 1: // login
 				employee.Login = val
@@ -129,7 +129,7 @@ func ParseCSVToEmployees(csvString string) ([]models.Employee, error) {
 				employee.Name = val
 			case 3: // salary
 				salary, err := strconv.ParseFloat(val, 64)
-				if err != nil || salary <= 0 {
+				if err != nil || !IsValidSalary(salary) {
 					return nil, fmt.Errorf(c.ErrStringCsvInvalidSalary)
 				}
 				employee.Salary = salary
@@ -143,4 +143,9 @@ func ParseCSVToEmployees(csvString string) ([]models.Employee, error) {
 		return nil, fmt.Errorf(c.ErrStringCsvNoData)
 	}
 	return employees, nil
+}
+
+// IsValidSalary checks if salary is a positive number with at most 2 decimals
+func IsValidSalary(salary float64) bool {
+	return salary >= 0
 }

@@ -1,4 +1,18 @@
 basePath: /
+definitions:
+  models.EmployeeUpdate:
+    properties:
+      login:
+        type: string
+      name:
+        type: string
+      salary:
+        type: number
+    required:
+    - login
+    - name
+    - salary
+    type: object
 host: localhost:4000
 info:
   contact:
@@ -64,6 +78,25 @@ paths:
       produces:
       - application/json
       summary: Delete employee
+      tags:
+      - employees
+    patch:
+      description: Update employee from db by employee id
+      parameters:
+      - description: Employee ID
+        in: path
+        name: employeeID
+        required: true
+        type: string
+      - description: Employee details
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.EmployeeUpdate'
+      produces:
+      - application/json
+      summary: Update employee
       tags:
       - employees
   /users/upload:

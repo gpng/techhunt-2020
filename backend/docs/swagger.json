@@ -115,6 +115,55 @@
                         "required": true
                     }
                 ]
+            },
+            "patch": {
+                "description": "Update employee from db by employee id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "employees"
+                ],
+                "summary": "Update employee",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Employee ID",
+                        "name": "employeeID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Employee details",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.EmployeeUpdate"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "definitions": {
+        "models.EmployeeUpdate": {
+            "type": "object",
+            "required": [
+                "login",
+                "name",
+                "salary"
+            ],
+            "properties": {
+                "login": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "salary": {
+                    "type": "number"
+                }
             }
         }
     }

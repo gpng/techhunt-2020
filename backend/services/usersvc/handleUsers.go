@@ -2,8 +2,10 @@ package usersvc
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 
 	"github.com/go-chi/chi"
@@ -135,5 +137,76 @@ func (s *Service) handleDeleteEmployee() http.HandlerFunc {
 		}
 
 		s.render.Respond(w, r, s.render.Message(true, "Employee deleted successfully"))
+	}
+}
+
+// handleUpdateEmployee godoc
+// @Summary Update employee
+// @Description Update employee from db by employee id
+// @Tags employees
+// @Produce  json
+// @Param employeeID path string true "Employee ID"
+// @Param body body models.EmployeeUpdate true "Employee details"
+// @Router /users/{employeeID} [patch]
+func (s *Service) handleUpdateEmployee() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		employeeID := chi.URLParam(r, "employeeID")
+		log.Println(employeeID)
+		// employee id is required
+		if employeeID == "" {
+			s.render.RespondWithStatus(w, r, http.StatusBadRequest,
+				s.render.ErrorMessage(c.ErrMissingParam, fmt.Errorf("Employee ID Required"), "Employee ID required"),
+			)
+			return
+		}
+
+		// check if employee exists
+		if _, err := models.GetEmployeeByID(s.db, employeeID); err != nil {
+			log.Println("not exists")
+			s.render.RespondWithStatus(w, r, http.StatusNotFound,
+				s.render.ErrorMessage(c.ErrMissingParam, err, "Employee id does not exist"),
+			)
+			return
+		}
+
+		updateParams := &models.EmployeeUpdate{}
+
+		// marshal into employee struct
+		err := json.NewDecoder(r.Body).Decode(updateParams)
+		if err != nil {
+			s.render.RespondWithStatus(w, r, http.StatusBadRequest,
+				s.render.ErrorMessage(c.ErrRequestBadJSON, err, "Invalid params"),
+			)
+			return
+		}
+
+		if err := s.validator.Validate(updateParams); err != nil {
+			s.render.RespondWithStatus(w, r, http.StatusBadRequest,
+				s.render.ErrorMessage(c.ErrRequestValidationFailed, err, "Invalid params"),
+			)
+			return
+		}
+
+		if !IsValidSalary(updateParams.Salary) {
+			s.render.RespondWithStatus(w, r, http.StatusBadRequest,
+				s.render.ErrorMessage(c.ErrRequestValidationFailed, err, "Invalid salary"),
+			)
+			return
+		}
+
+		employee := models.Employee{}
+		employee.ID = employeeID
+		employee.Salary = updateParams.Salary
+		employee.Name = updateParams.Name
+		employee.Login = updateParams.Login
+
+		if err := employee.Save(s.db); err != nil {
+			s.render.RespondWithStatus(w, r, http.StatusBadRequest,
+				s.render.ErrorMessage(c.ErrDbUpdateFailed, err, "Employee update failed"),
+			)
+			return
+		}
+
+		s.render.Respond(w, r, s.render.Message(true, "Employee updated successfully"))
 	}
 }
