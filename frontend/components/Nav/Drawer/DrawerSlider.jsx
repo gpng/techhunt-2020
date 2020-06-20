@@ -21,7 +21,12 @@ const DrawerSlider = () => {
 
   return (
     <div className="drawer-slider-root">
-      <button type="button" className="button-menu" onClick={() => setOpen(!open)}>
+      <button
+        type="button"
+        className="button-menu"
+        onClick={() => setOpen(!open)}
+        data-testid="button-menu"
+      >
         <Menu width="1rem" fill={COLORS.BACKGROUND_PRIMARY} />
       </button>
       <div

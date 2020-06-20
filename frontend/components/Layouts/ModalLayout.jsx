@@ -13,12 +13,13 @@ const ModalLayout = ({ children, title }) => {
       <button
         type="button"
         className="button-close"
-        onClick={() => dispatch({ type: APP_ACTIONS.MODAL_OPEN })}
+        onClick={() => dispatch({ type: APP_ACTIONS.MODAL_CLOSE })}
+        data-testid="button-close"
       >
         <Close width="1rem" />
       </button>
       <header>
-        <h2>{title}</h2>
+        <h2 data-testid="title">{title}</h2>
       </header>
       <section className="content">{children}</section>
       <style jsx>{`

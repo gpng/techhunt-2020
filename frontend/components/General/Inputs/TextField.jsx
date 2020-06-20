@@ -6,13 +6,16 @@ import { COLORS } from '../../../constants/styles';
 const TextField = ({ label, type, value, onChange, placeholder }) => {
   return (
     <div className="text-field-root">
-      <div className="label">{label}</div>
+      <div className="label" data-testid="label">
+        {label}
+      </div>
       <input
         type={type}
         className="input-text"
         value={value}
         onChange={(ev) => onChange(ev.target.value)}
         placeholder={placeholder}
+        data-testid="input"
       />
       <style jsx>{`
         .text-field-root {

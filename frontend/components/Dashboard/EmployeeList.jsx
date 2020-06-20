@@ -12,7 +12,7 @@ const EmployeeList = ({ loading, employees, columns, actionLabel, error }) => {
         <thead>
           <tr>
             {columns.map((col) => (
-              <th key={col.key} className="col">
+              <th key={col.key} className="col" data-testid="header-columns">
                 {col.label}
               </th>
             ))}
@@ -21,9 +21,9 @@ const EmployeeList = ({ loading, employees, columns, actionLabel, error }) => {
         </thead>
         <tbody>
           {employees.map((e) => (
-            <tr className="row" key={e.id}>
+            <tr className="row" key={e.id} data-testid="employee-rows">
               {columns.map((col) => (
-                <td key={col.key} className="col col-cell">
+                <td key={col.key} className="col col-cell" data-testid="employee-cells">
                   {e[col.accessor]}
                 </td>
               ))}
@@ -38,13 +38,17 @@ const EmployeeList = ({ loading, employees, columns, actionLabel, error }) => {
         </tbody>
       </table>
       <div className="messages">
-        {error && <div className="error">{error}</div>}
+        {!loading && error && (
+          <div className="error" data-testid="error">
+            {error}
+          </div>
+        )}
         {loading && (
-          <div className="loading-wrapper">
+          <div className="loading-wrapper" data-testid="spinner">
             <Spinner width="3rem" />
           </div>
         )}
-        {!loading && !error && !employees.length && <div>No results!</div>}
+        {!loading && !error && !employees.length && <div data-testid="no-results">No results!</div>}
       </div>
       <style jsx>{`
         .employee-list-root {

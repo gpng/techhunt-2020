@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should match default snapshot 1`] = `
+<DocumentFragment>
+  <aside
+    class="jsx-3606731684 drawer-root"
+  >
+    <div
+      class="jsx-1818524733 avatar-root"
+    />
+    <div
+      class="jsx-3606731684 button-container"
+    >
+      <button
+        class="jsx-3606731684 button-function"
+        type="button"
+      >
+        Upload CSV
+      </button>
+    </div>
+  </aside>
+</DocumentFragment>
+`;
