@@ -11,8 +11,6 @@ info:
 paths:
   /users:
     get:
-      consumes:
-      - application/json
       description: Search employee data
       parameters:
       - description: Minimum salary
@@ -52,6 +50,20 @@ paths:
       produces:
       - application/json
       summary: Search employee data
+      tags:
+      - employees
+  /users/{employeeID}:
+    delete:
+      description: Delete employee from db by employee id
+      parameters:
+      - description: Employee ID
+        in: path
+        name: employeeID
+        required: true
+        type: string
+      produces:
+      - application/json
+      summary: Delete employee
       tags:
       - employees
   /users/upload:

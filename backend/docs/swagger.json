@@ -16,9 +16,6 @@
         "/users": {
             "get": {
                 "description": "Search employee data",
-                "consumes": [
-                    "application/json"
-                ],
                 "produces": [
                     "application/json"
                 ],
@@ -94,6 +91,27 @@
                         "description": "Employee CSV",
                         "name": "file",
                         "in": "formData",
+                        "required": true
+                    }
+                ]
+            }
+        },
+        "/users/{employeeID}": {
+            "delete": {
+                "description": "Delete employee from db by employee id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "employees"
+                ],
+                "summary": "Delete employee",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Employee ID",
+                        "name": "employeeID",
+                        "in": "path",
                         "required": true
                     }
                 ]

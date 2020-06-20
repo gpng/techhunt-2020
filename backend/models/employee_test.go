@@ -9,6 +9,7 @@ import (
 	"testing"
 
 	"github.com/DATA-DOG/go-sqlmock"
+	c "github.com/gpng/techhunt-2020/backend/constants"
 	"github.com/gpng/techhunt-2020/backend/models"
 	"github.com/jinzhu/gorm"
 )
@@ -27,6 +28,20 @@ func setupMockDb(t *testing.T) (*gorm.DB, sqlmock.Sqlmock, error) {
 	}
 
 	return gormDb, mock, nil
+}
+
+func TestEmployeeDelete(t *testing.T) {
+	db, _, err := setupMockDb(t)
+	if err != nil {
+		return
+	}
+	defer db.Close()
+	employee := models.Employee{
+		ID: "",
+	}
+	if err := employee.Delete(db); err == nil || err.Error() != c.ErrStringDbDeleteNoPK {
+		t.Errorf("No primary key: Expected error %v but got %v instead", fmt.Errorf(c.ErrStringDbDeleteNoPK), err)
+	}
 }
 
 func TestEmployeeSearch(t *testing.T) {

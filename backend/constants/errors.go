@@ -60,9 +60,10 @@ const (
 	ErrCsvInvalid = 1001
 )
 
-// error strings as returned by gorm, for checking for specific errors
+// error strings for checking for specific errors
 const (
 	ErrStringDbDuplicateEmployeeLogin = "pq: duplicate key value violates unique constraint \"employees_login_key\""
+	ErrStringDbDeleteNoPK             = "Primary key required for delete"
 )
 
 // error strings for search params

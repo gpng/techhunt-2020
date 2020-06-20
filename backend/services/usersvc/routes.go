@@ -12,5 +12,7 @@ func (s *Service) Routes() chi.Router {
 
 	router.Post("/upload", s.handleUpload())
 
+	router.Delete("/{employeeID}", s.handleDeleteEmployee())
+
 	return router
 }

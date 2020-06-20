@@ -6,6 +6,7 @@ import (
 	"io"
 	"net/http"
 
+	"github.com/go-chi/chi"
 	c "github.com/gpng/techhunt-2020/backend/constants"
 	"github.com/gpng/techhunt-2020/backend/models"
 	u "github.com/gpng/techhunt-2020/backend/utils/utils"
@@ -16,7 +17,6 @@ import (
 // @Summary Search employee data
 // @Description Search employee data
 // @Tags employees
-// @Accept  json
 // @Produce  json
 // @Param minSalary query number true "Minimum salary"
 // @Param maxSalary query number true "Maximum salary"
@@ -104,5 +104,36 @@ func (s *Service) handleUpload() http.HandlerFunc {
 
 		s.isUploading = false
 		s.render.Respond(w, r, s.render.Message(true, "Employees updated successfully"))
+	}
+}
+
+// handleDeleteEmployee godoc
+// @Summary Delete employee
+// @Description Delete employee from db by employee id
+// @Tags employees
+// @Produce  json
+// @Param employeeID path string true "Employee ID"
+// @Router /users/{employeeID} [delete]
+func (s *Service) handleDeleteEmployee() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		employeeID := chi.URLParam(r, "employeeID")
+		if employeeID == "" {
+			s.render.RespondWithStatus(w, r, http.StatusBadRequest,
+				s.render.ErrorMessage(c.ErrMissingParam, fmt.Errorf("Employee ID Required"), "Employee ID required"),
+			)
+			return
+		}
+
+		employee := models.Employee{}
+		employee.ID = employeeID
+
+		if err := employee.Delete(s.db); err != nil {
+			s.render.RespondWithStatus(w, r, http.StatusBadRequest,
+				s.render.ErrorMessage(c.ErrDbDeleteFailed, err, "Employee Delete failed"),
+			)
+			return
+		}
+
+		s.render.Respond(w, r, s.render.Message(true, "Employee deleted successfully"))
 	}
 }

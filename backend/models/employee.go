@@ -28,26 +28,6 @@ type EmployeeSearch struct {
 	SortAsc   bool
 }
 
-// Save and upsert employee details
-func (employee *Employee) Save(db *gorm.DB) error {
-	err := db.Save(employee).Error
-	if err != nil {
-		u.LogError(err)
-	}
-	return err
-}
-
-// GetEmployeesByLogin from db
-func GetEmployeesByLogin(db *gorm.DB, logins []string) ([]Employee, error) {
-	employees := []Employee{}
-	err := db.Where("login in (?)", logins).Find(&employees).Error
-	if err != nil && !gorm.IsRecordNotFoundError(err) {
-		u.LogError(err)
-		return nil, err
-	}
-	return employees, nil
-}
-
 // Possible values for sort column names
 const (
 	SortID     = "id"
@@ -74,6 +54,39 @@ func (sb SortBy) IsValid() error {
 		return nil
 	}
 	return fmt.Errorf("Invalid sort column")
+}
+
+// Save and upsert employee details
+func (employee *Employee) Save(db *gorm.DB) error {
+	err := db.Save(employee).Error
+	if err != nil {
+		u.LogError(err)
+	}
+	return err
+}
+
+// Delete emploee
+func (employee *Employee) Delete(db *gorm.DB) error {
+	// MUST have primary key (id) or everything will be deleted
+	if employee.ID == "" {
+		return fmt.Errorf(c.ErrStringDbDeleteNoPK)
+	}
+	err := db.Unscoped().Delete(employee).Error
+	if err != nil {
+		u.LogError(err)
+	}
+	return err
+}
+
+// GetEmployeesByLogin from db
+func GetEmployeesByLogin(db *gorm.DB, logins []string) ([]Employee, error) {
+	employees := []Employee{}
+	err := db.Where("login in (?)", logins).Find(&employees).Error
+	if err != nil && !gorm.IsRecordNotFoundError(err) {
+		u.LogError(err)
+		return nil, err
+	}
+	return employees, nil
 }
 
 // BulkUpsertEmployees in a db transaction
