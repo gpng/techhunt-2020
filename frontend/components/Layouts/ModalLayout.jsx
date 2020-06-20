@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 // contexts
-import AppContext, { APP_ACTIONS } from '../Context/App/AppContext';
+import AppContext from '../Context/App/AppContext';
 // components
 import { Close } from '../General/Icons';
+// actions
+import { closeModal } from '../../actions/creators';
 
 const ModalLayout = ({ children, title }) => {
   const { dispatch } = useContext(AppContext);
@@ -13,7 +15,7 @@ const ModalLayout = ({ children, title }) => {
       <button
         type="button"
         className="button-close"
-        onClick={() => dispatch({ type: APP_ACTIONS.MODAL_CLOSE })}
+        onClick={() => dispatch(closeModal())}
         data-testid="button-close"
       >
         <Close width="1rem" />

@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
 // contexts
-import AppContext, { APP_ACTIONS } from '../../Context/App/AppContext';
+import AppContext from '../../Context/App/AppContext';
 // components
 import ModalLayout from '../../Layouts/ModalLayout';
 import { Spinner } from '../../General/Animations';
 // translations
 import useTranslations from '../../../translations/useTranslations';
+// actions
+import { submitUploadCSV } from '../../../actions/creators';
 
 const Upload = () => {
   const {
@@ -19,7 +21,7 @@ const Upload = () => {
   const handleChange = (ev) => {
     const { files } = ev.target;
     if (files.length) {
-      dispatchAsync({ type: APP_ACTIONS.UPLOAD_CSV.SUBMIT, payload: files[0] });
+      dispatchAsync(submitUploadCSV(files[0]));
     }
   };
 

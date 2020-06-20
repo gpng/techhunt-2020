@@ -3,7 +3,7 @@ import { cleanup, fireEvent } from '@testing-library/react';
 import { renderWithCustomAppContext } from '../../utils/tests';
 import Dashboard from './Dashboard';
 import { SEARCH } from '../../constants';
-import { APP_ACTIONS } from '../Context/App/AppContext';
+import { submitSearch } from '../../actions/creators';
 
 afterEach(cleanup);
 
@@ -41,10 +41,15 @@ it('should dispatch search action on mount', () => {
     },
   });
   expect(mockDispatchAsync).toBeCalledTimes(1);
-  expect(mockDispatchAsync).toBeCalledWith({
-    type: APP_ACTIONS.SEARCH.SUBMIT,
-    payload: defaultPayload,
-  });
+  expect(mockDispatchAsync).toBeCalledWith(
+    submitSearch(
+      defaultPayload.minSalary,
+      defaultPayload.maxSalary,
+      defaultPayload.sort,
+      defaultPayload.offset,
+      defaultPayload.limit,
+    ),
+  );
 });
 
 it('should dispatch search action on button click', () => {
@@ -57,10 +62,15 @@ it('should dispatch search action on button click', () => {
   });
   fireEvent.click(getByTestId('button-search'));
   expect(mockDispatchAsync).toBeCalledTimes(2);
-  expect(mockDispatchAsync).toBeCalledWith({
-    type: APP_ACTIONS.SEARCH.SUBMIT,
-    payload: defaultPayload,
-  });
+  expect(mockDispatchAsync).toBeCalledWith(
+    submitSearch(
+      defaultPayload.minSalary,
+      defaultPayload.maxSalary,
+      defaultPayload.sort,
+      defaultPayload.offset,
+      defaultPayload.limit,
+    ),
+  );
 });
 
 it('should dispatch search action on sort change', () => {
@@ -76,8 +86,13 @@ it('should dispatch search action on sort change', () => {
     target: { value: sort },
   });
   expect(mockDispatchAsync).toBeCalledTimes(2);
-  expect(mockDispatchAsync).toBeCalledWith({
-    type: APP_ACTIONS.SEARCH.SUBMIT,
-    payload: { ...defaultPayload, sort },
-  });
+  expect(mockDispatchAsync).toBeCalledWith(
+    submitSearch(
+      defaultPayload.minSalary,
+      defaultPayload.maxSalary,
+      sort,
+      defaultPayload.offset,
+      defaultPayload.limit,
+    ),
+  );
 });

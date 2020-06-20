@@ -2,7 +2,7 @@ import React from 'react';
 import { cleanup, fireEvent } from '@testing-library/react';
 import { renderWithContext, renderWithCustomAppContext } from '../../../utils/tests';
 import Upload from './Upload';
-import { APP_ACTIONS } from '../../Context/App/AppContext';
+import { submitUploadCSV } from '../../../actions/creators';
 
 afterEach(cleanup);
 
@@ -78,8 +78,5 @@ it('should dispatch file upload action on file input', () => {
   fireEvent.change(input);
 
   expect(mockDispatchAsync).toBeCalledTimes(1);
-  expect(mockDispatchAsync).toBeCalledWith({
-    type: APP_ACTIONS.UPLOAD_CSV.SUBMIT,
-    payload: file,
-  });
+  expect(mockDispatchAsync).toBeCalledWith(submitUploadCSV(file));
 });

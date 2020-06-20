@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 // contexts
-import AppContext, { APP_ACTIONS } from '../Context/App/AppContext';
+import AppContext from '../Context/App/AppContext';
 // components
 import TextField from '../General/Inputs/TextField';
 import EmployeeList from './EmployeeList';
@@ -9,6 +9,7 @@ import Pagination from './Pagination';
 import useTranslations from '../../translations/useTranslations';
 // constants
 import { SEARCH, BREAKPOINTS } from '../../constants';
+import { submitSearch } from '../../actions/creators';
 
 const Dashboard = () => {
   const { t } = useTranslations();
@@ -51,16 +52,15 @@ const Dashboard = () => {
   // immediately retrieve first set of results on mount
   useEffect(() => {
     const handleSearch = async () => {
-      dispatchAsync({
-        type: APP_ACTIONS.SEARCH.SUBMIT,
-        payload: {
-          minSalary: salaryRange[0],
-          maxSalary: salaryRange[1],
+      dispatchAsync(
+        submitSearch(
+          salaryRange[0],
+          salaryRange[1],
           sort,
-          offset: page * SEARCH.PAGE_SIZE,
-          limit: SEARCH.PAGE_SIZE,
-        },
-      });
+          page * SEARCH.PAGE_SIZE,
+          SEARCH.PAGE_SIZE,
+        ),
+      );
     };
     handleSearch();
   }, [sort, page, salaryRange, dispatchAsync]);

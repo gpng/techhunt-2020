@@ -2,7 +2,7 @@ import React from 'react';
 import { cleanup, fireEvent } from '@testing-library/react';
 import ModalLayout from './ModalLayout';
 import { renderWithContext, renderWithCustomAppContext } from '../../utils/tests';
-import { APP_ACTIONS } from '../Context/App/AppContext';
+import { closeModal } from '../../actions/creators';
 
 afterEach(cleanup);
 
@@ -32,7 +32,5 @@ it('should dispatch a close action on close button click', () => {
   );
   fireEvent.click(getByTestId('button-close'));
   expect(mockDispatch).toBeCalledTimes(1);
-  expect(mockDispatch).toBeCalledWith({
-    type: APP_ACTIONS.MODAL_CLOSE,
-  });
+  expect(mockDispatch).toBeCalledWith(closeModal());
 });

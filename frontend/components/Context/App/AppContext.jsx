@@ -1,7 +1,14 @@
 import React, { useReducer, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 // actions
-import { PostCSV, SearchEmployees } from '../../../actions/employees';
+import { PostCSV, SearchEmployees } from '../../../actions/requests/employees';
+import {
+  APP_ACTIONS,
+  loadedUploadCSV,
+  loadingSearch,
+  loadedSearch,
+  loadingUploadCSV,
+} from '../../../actions/creators';
 
 const initialState = {
   openModal: null,
@@ -18,27 +25,12 @@ const initialState = {
   },
 };
 
-const APP_ACTIONS = {
-  MODAL_CLOSE: 'modal_close',
-  MODAL_OPEN: 'modal_open',
-  UPLOAD_CSV: {
-    SUBMIT: 'upload_submit',
-    LOADING: 'upload_loading',
-    LOADED: 'upload_loaded',
-  },
-  SEARCH: {
-    SUBMIT: 'search_submit',
-    LOADING: 'search_loading',
-    LOADED: 'search_loaded',
-  },
-};
-
 const reducer = (state, action) => {
   switch (action.type) {
     // modals
-    case APP_ACTIONS.MODAL_CLOSE:
-      return { ...state, openModal: action.payload };
     case APP_ACTIONS.MODAL_OPEN:
+      return { ...state, openModal: action.payload };
+    case APP_ACTIONS.MODAL_CLOSE:
       return { ...state, openModal: null };
     // uploading csv
     case APP_ACTIONS.UPLOAD_CSV.LOADING:
@@ -90,7 +82,7 @@ const AppProvider = ({ children }) => {
     const searchEmployees = async ({ minSalary, maxSalary, sort, offset, limit }) => {
       searchParamsRef.current = { minSalary, maxSalary, sort, offset, limit };
       searchRequest.current.refresh();
-      dispatch({ type: APP_ACTIONS.SEARCH.LOADING });
+      dispatch(loadingSearch());
       const [err, res] = await searchRequest.current.call(
         minSalary,
         maxSalary,
@@ -98,27 +90,14 @@ const AppProvider = ({ children }) => {
         offset,
         limit,
       );
-      dispatch({
-        type: APP_ACTIONS.SEARCH.LOADED,
-        payload: {
-          results: res?.results ?? [],
-          success: !err,
-          error: err,
-        },
-      });
+      dispatch(loadedSearch(res?.results ?? [], !err, err));
     };
 
     const uploadCsv = async (file) => {
       postCsvRequest.current.refresh();
-      dispatch({ type: APP_ACTIONS.UPLOAD_CSV.LOADING });
+      dispatch(loadingUploadCSV());
       const [err] = await postCsvRequest.current.call(file);
-      dispatch({
-        type: APP_ACTIONS.UPLOAD_CSV.LOADED,
-        payload: {
-          success: !err,
-          error: err,
-        },
-      });
+      dispatch(loadedUploadCSV(!err, err));
       // refresh search
       if (searchParamsRef.current) {
         searchEmployees(searchParamsRef.current);
@@ -146,5 +125,5 @@ AppProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export { AppProvider, APP_ACTIONS };
+export { AppProvider };
 export default AppContext;

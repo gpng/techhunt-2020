@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
 // context
-import AppContext, { APP_ACTIONS } from '../../Context/App/AppContext';
+import AppContext from '../../Context/App/AppContext';
 // components
 import Avatar from '../../Profile/Avatar';
 // translations
 import useTranslations from '../../../translations/useTranslations';
+// actions
+import { openModal } from '../../../actions/creators';
 // constants
 import { MODALS } from '../../../constants';
 import { COLORS } from '../../../constants/styles';
@@ -20,12 +22,8 @@ const Drawer = () => {
         <button
           type="button"
           className="button-function"
-          onClick={() =>
-            dispatch({
-              type: APP_ACTIONS.MODAL_CLOSE,
-              payload: MODALS.UPLOAD_CSV,
-            })
-          }
+          onClick={() => dispatch(openModal(MODALS.UPLOAD_CSV))}
+          data-testid="button-upload"
         >
           {t('drawer.functions.uploadCSV')}
         </button>

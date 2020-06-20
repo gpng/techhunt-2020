@@ -1,10 +1,10 @@
 /* eslint-disable max-classes-per-file */
 import axios from 'axios';
-import { to } from '../utils';
+import { to } from '../../utils';
 // components
 import AxioRequest from './Request';
 // constants
-import { API_HOST } from '../constants';
+import { API_HOST } from '../../constants';
 
 // eslint-disable-next-line import/prefer-default-export
 export class PostCSV extends AxioRequest {

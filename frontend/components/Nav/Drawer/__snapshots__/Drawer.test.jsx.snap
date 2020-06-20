@@ -13,6 +13,7 @@ exports[`should match default snapshot 1`] = `
     >
       <button
         class="jsx-3606731684 button-function"
+        data-testid="button-upload"
         type="button"
       >
         Upload CSV

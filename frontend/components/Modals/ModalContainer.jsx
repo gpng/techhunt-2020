@@ -1,10 +1,12 @@
 import React, { useContext, useRef } from 'react';
 // contexts
-import AppContext, { APP_ACTIONS } from '../Context/App/AppContext';
+import AppContext from '../Context/App/AppContext';
 // components
 import Upload from './Upload/Upload';
 // utils
 import { useOnClickOutside } from '../../utils/hooks';
+// actions
+import { closeModal } from '../../actions/creators';
 // constants
 import { COLORS } from '../../constants/styles';
 import { MODALS } from '../../constants';
@@ -19,7 +21,7 @@ const ModalContainer = () => {
 
   useOnClickOutside(contentRef, () => {
     if (openModal) {
-      dispatch({ type: APP_ACTIONS.MODAL_OPEN });
+      dispatch(closeModal());
     }
   });
 

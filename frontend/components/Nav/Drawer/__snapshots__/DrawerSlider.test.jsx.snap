@@ -40,6 +40,7 @@ exports[`should match default snapshot 1`] = `
         >
           <button
             class="jsx-3606731684 button-function"
+            data-testid="button-upload"
             type="button"
           >
             Upload CSV
@@ -91,6 +92,7 @@ exports[`should match default snapshot after close: should match default snapsho
         >
           <button
             class="jsx-3606731684 button-function"
+            data-testid="button-upload"
             type="button"
           >
             Upload CSV
@@ -142,6 +144,7 @@ exports[`should match open snapshot 1`] = `
         >
           <button
             class="jsx-3606731684 button-function"
+            data-testid="button-upload"
             type="button"
           >
             Upload CSV
