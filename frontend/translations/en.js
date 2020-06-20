@@ -2,6 +2,7 @@ const strings = {
   prompts: {
     confirm: 'Confirm',
     cancel: 'Cancel',
+    close: 'Close',
   },
   drawer: {
     functions: {

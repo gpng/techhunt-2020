@@ -47,15 +47,17 @@ const Delete = () => {
         <div className="buttons-wrapper">
           <button
             type="button"
+            className="button-cancel"
             onClick={() => dispatch(closeModal())}
             disabled={loading}
             data-testid="button-cancel"
           >
-            {t('prompts.cancel')}
+            {t(success ? 'prompts.close' : 'prompts.cancel')}
           </button>
           {!success && (
             <button
               type="button"
+              className="button-confirm"
               onClick={() => dispatchAsync(submitDelete(value))}
               disabled={loading}
               data-testid="button-confirm"
@@ -78,6 +80,24 @@ const Delete = () => {
 
           .message--error {
             color: red;
+          }
+
+          .button-cancel {
+            border: none;
+          }
+
+          .button-confirm {
+            background: red;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 0.4rem;
+            color: #ffffff;
+          }
+
+          .buttons-wrapper {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: space-between;
           }
         `}</style>
       </div>
