@@ -30,7 +30,7 @@ const strings = {
     buttonSearch: 'Search Employees',
     minimumSalary: 'Minimum Salary',
     maximumSalary: 'Maximum Salary',
-    sortBy: 'sortBy',
+    sortBy: 'Sort By',
     columns: {
       id: 'ID',
       name: 'Name',
