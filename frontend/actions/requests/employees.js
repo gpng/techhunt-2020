@@ -68,3 +68,30 @@ export class DeleteEmployee extends AxioRequest {
     return [err?.response?.data?.message ?? 'server error', null];
   }
 }
+
+export class EditEmployee extends AxioRequest {
+  async call(employee) {
+    const { id, name, login, salary } = employee;
+    const uri = `${API_HOST}/users/${id}`;
+
+    const numSalary = typeof salary === 'number' ? salary : Number(salary);
+
+    const [err, res] = await to(
+      axios.patch(
+        uri,
+        {
+          name,
+          login,
+          salary: numSalary,
+        },
+        {
+          cancelToken: this.getCancelToken(),
+        },
+      ),
+    );
+    if (!err && res.status === 200 && res.data) {
+      return [null, res.data];
+    }
+    return [err?.response?.data?.message ?? 'server error', null];
+  }
+}

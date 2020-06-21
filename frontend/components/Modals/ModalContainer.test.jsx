@@ -13,6 +13,7 @@ const defaultAppState = {
   },
   upload: { loading: false, success: false, error: null },
   delete: { loading: false, success: false, error: null },
+  edit: { loading: false, success: false, error: null },
 };
 
 it('should render null by default', () => {
@@ -60,4 +61,18 @@ it('should have modal content with Delete component', () => {
     },
   });
   expect(getByTestId('delete-root')).toBeTruthy();
+});
+
+it('should have modal content with Edit component', () => {
+  const { getByTestId } = renderWithCustomAppContext(<ModalContainer />, {
+    value: {
+      state: {
+        ...defaultAppState,
+        modal: { name: MODALS.EDIT, value: 'testid' },
+      },
+      dispatch: () => {},
+      dispatchAsync: () => {},
+    },
+  });
+  expect(getByTestId('edit-root')).toBeTruthy();
 });

@@ -4,6 +4,7 @@ import AppContext from '../Context/App/AppContext';
 // components
 import Upload from './Upload/Upload';
 import Delete from './Delete/Delete';
+import Edit from './Edit/Edit';
 // utils
 import { useOnClickOutside } from '../../utils/hooks';
 // actions
@@ -35,6 +36,7 @@ const ModalContainer = () => {
           {
             [MODALS.UPLOAD_CSV]: <Upload />,
             [MODALS.DELETE]: <Delete />,
+            [MODALS.EDIT]: <Edit />,
           }[name]
         }
       </section>

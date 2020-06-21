@@ -3,6 +3,7 @@ const strings = {
     confirm: 'Confirm',
     cancel: 'Cancel',
     close: 'Close',
+    save: 'Save',
   },
   drawer: {
     functions: {
@@ -18,6 +19,11 @@ const strings = {
     employeeId: 'Removing Employee with id: ',
     message: 'Are you sure?',
     success: 'Deleted successfully!',
+  },
+  edit: {
+    title: 'Edit Employee',
+    employeeId: 'Editing Employee with id: ',
+    success: 'Updated successfully!',
   },
   dashboard: {
     title: 'Employees',

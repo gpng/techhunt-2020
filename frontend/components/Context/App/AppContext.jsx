@@ -1,7 +1,12 @@
 import React, { useReducer, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 // actions
-import { PostCSV, SearchEmployees, DeleteEmployee } from '../../../actions/requests/employees';
+import {
+  PostCSV,
+  SearchEmployees,
+  DeleteEmployee,
+  EditEmployee,
+} from '../../../actions/requests/employees';
 import {
   APP_ACTIONS,
   loadedUploadCSV,
@@ -10,6 +15,8 @@ import {
   loadingUploadCSV,
   loadingDelete,
   loadedDelete,
+  loadingEdit,
+  loadedEdit,
 } from '../../../actions/creators';
 
 const initialState = {
@@ -29,7 +36,11 @@ const initialState = {
     error: null,
   },
   delete: {
-    id: null,
+    loading: false,
+    success: false,
+    error: null,
+  },
+  edit: {
     loading: false,
     success: false,
     error: null,
@@ -53,6 +64,11 @@ const reducer = (state, action) => {
         },
         delete: {
           id: null,
+          loading: false,
+          success: false,
+          error: null,
+        },
+        edit: {
           loading: false,
           success: false,
           error: null,
@@ -85,6 +101,13 @@ const reducer = (state, action) => {
         ...state,
         delete: { loading: false, success: action.payload.success, error: action.payload.error },
       };
+    case APP_ACTIONS.EDIT.LOADING:
+      return { ...state, edit: { loading: true, success: false, error: null } };
+    case APP_ACTIONS.EDIT.LOADED:
+      return {
+        ...state,
+        edit: { loading: false, success: action.payload.success, error: action.payload.error },
+      };
     default: {
       // eslint-disable-next-line no-console
       console.warn(`Unhandled action type: ${action.type}`);
@@ -101,6 +124,7 @@ const AppProvider = ({ children }) => {
   const postCsvRequest = useRef(new PostCSV());
   const searchRequest = useRef(new SearchEmployees());
   const deleteRequest = useRef(new DeleteEmployee());
+  const editRequest = useRef(new EditEmployee());
 
   // store the last search params so we can easily refresh search
   const searchParamsRef = useRef(null);
@@ -147,6 +171,17 @@ const AppProvider = ({ children }) => {
       }
     };
 
+    const editEmployee = async (employee) => {
+      postCsvRequest.current.refresh();
+      dispatch(loadingEdit());
+      const [err] = await editRequest.current.call(employee);
+      dispatch(loadedEdit(!err, err));
+      // refresh search
+      if (searchParamsRef.current) {
+        searchEmployees(searchParamsRef.current);
+      }
+    };
+
     switch (action.type) {
       case APP_ACTIONS.UPLOAD_CSV.SUBMIT:
         uploadCsv(action.payload);
@@ -156,6 +191,9 @@ const AppProvider = ({ children }) => {
         break;
       case APP_ACTIONS.DELETE.SUBMIT:
         deleteEmployee(action.payload);
+        break;
+      case APP_ACTIONS.EDIT.SUBMIT:
+        editEmployee(action.payload);
         break;
       default:
         dispatch(action);

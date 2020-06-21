@@ -54,6 +54,10 @@ const Dashboard = () => {
     dispatch(openModal(MODALS.DELETE, id));
   };
 
+  const handleEditClick = (employee) => {
+    dispatch(openModal(MODALS.EDIT, employee));
+  };
+
   // immediately retrieve first set of results on mount
   useEffect(() => {
     const handleSearch = async () => {
@@ -138,6 +142,7 @@ const Dashboard = () => {
           ]}
           actionLabel={t('dashboard.columns.actions')}
           onClickDelete={handleDeleteClick}
+          onClickEdit={handleEditClick}
         />
       </section>
       <style jsx>{`

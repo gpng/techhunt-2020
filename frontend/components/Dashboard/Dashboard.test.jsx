@@ -118,3 +118,25 @@ it('should dispatch open delete modal on delete click', () => {
   });
   expect(mockDispatch).toBeCalledTimes(employees.length);
 });
+
+it('should dispatch open edit modal on edit click', () => {
+  const mockDispatch = jest.fn();
+  const employees = [
+    {
+      id: 'testid1',
+    },
+    { id: 'testid2' },
+  ];
+  const { getByTestId } = renderWithCustomAppContext(<Dashboard />, {
+    value: {
+      dispatch: mockDispatch,
+      dispatchAsync: () => {},
+      state: { search: { employees, loading: false, success: false, error: null } },
+    },
+  });
+  employees.forEach((x) => {
+    fireEvent.click(getByTestId(`button-edit-wrapper-${x.id}`).querySelector('button'));
+    expect(mockDispatch).toBeCalledWith(openModal(MODALS.EDIT, x));
+  });
+  expect(mockDispatch).toBeCalledTimes(employees.length);
+});

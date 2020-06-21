@@ -20,6 +20,7 @@ const requiredProps = {
     },
   ],
   onClickDelete: () => {},
+  onClickEdit: () => {},
 };
 
 it('should render', () => {
@@ -66,7 +67,7 @@ it('it should have a delete button for each employee', () => {
   ];
   const { queryByTestId } = render(<EmployeeList {...requiredProps} employees={employees} />);
   employees.forEach((x) => {
-    expect(queryByTestId(`button-delete-wrapper-${x.id}`)).toBeTruthy();
+    expect(queryByTestId(`button-delete-wrapper-${x.id}`).querySelector('button')).toBeTruthy();
   });
 });
 
@@ -84,4 +85,31 @@ it('it should fire onClickDelete with correct id for each employee', () => {
     expect(mockOnClickDelete).toBeCalledWith(x.id);
   });
   expect(mockOnClickDelete).toBeCalledTimes(employees.length);
+});
+
+it('it should have a edit button for each employee', () => {
+  const employees = [
+    { id: 'id1', name: 'name1' },
+    { id: 'id2', name: 'name2' },
+  ];
+  const { queryByTestId } = render(<EmployeeList {...requiredProps} employees={employees} />);
+  employees.forEach((x) => {
+    expect(queryByTestId(`button-edit-wrapper-${x.id}`).querySelector('button')).toBeTruthy();
+  });
+});
+
+it('it should fire onClickEdit with details for each employee', () => {
+  const employees = [
+    { id: 'id1', name: 'name1' },
+    { id: 'id2', name: 'name2' },
+  ];
+  const mockOnClickEdit = jest.fn();
+  const { getByTestId } = render(
+    <EmployeeList {...requiredProps} employees={employees} onClickEdit={mockOnClickEdit} />,
+  );
+  employees.forEach((x) => {
+    fireEvent.click(getByTestId(`button-edit-wrapper-${x.id}`).querySelector('button'));
+    expect(mockOnClickEdit).toBeCalledWith(x);
+  });
+  expect(mockOnClickEdit).toBeCalledTimes(employees.length);
 });

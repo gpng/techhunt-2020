@@ -22,7 +22,7 @@ const Delete = () => {
 
   return (
     <ModalLayout title={t('delete.title')}>
-      <div className="upload-root" data-testid="delete-root">
+      <div className="delete-root" data-testid="delete-root">
         <p>{`${t('delete.employeeId')}${value}`}</p>
         {!loading && (
           <div data-testid="message">
@@ -67,7 +67,7 @@ const Delete = () => {
           )}
         </div>
         <style jsx>{`
-          .upload-root {
+          .delete-root {
           }
 
           .message {

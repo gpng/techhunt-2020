@@ -16,6 +16,11 @@ export const APP_ACTIONS = {
     LOADING: 'delete_loading',
     LOADED: 'delete_loaded',
   },
+  EDIT: {
+    SUBMIT: 'edit_submit',
+    LOADING: 'edit_loading',
+    LOADED: 'edit_loaded',
+  },
 };
 
 export const closeModal = () => ({ type: APP_ACTIONS.MODAL_CLOSE });
@@ -71,6 +76,23 @@ export const loadingDelete = () => ({
 
 export const loadedDelete = (success, error) => ({
   type: APP_ACTIONS.DELETE.LOADED,
+  payload: {
+    success,
+    error,
+  },
+});
+
+export const submitEdit = (employee) => ({
+  type: APP_ACTIONS.EDIT.SUBMIT,
+  payload: employee,
+});
+
+export const loadingEdit = () => ({
+  type: APP_ACTIONS.EDIT.LOADING,
+});
+
+export const loadedEdit = (success, error) => ({
+  type: APP_ACTIONS.EDIT.LOADED,
   payload: {
     success,
     error,

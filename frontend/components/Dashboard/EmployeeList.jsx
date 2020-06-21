@@ -5,7 +5,15 @@ import { Delete, Edit } from '../General/Icons';
 import IconButton from '../General/Buttons/IconButton';
 import { Spinner } from '../General/Animations';
 
-const EmployeeList = ({ loading, employees, columns, actionLabel, error, onClickDelete }) => {
+const EmployeeList = ({
+  loading,
+  employees,
+  columns,
+  actionLabel,
+  error,
+  onClickDelete,
+  onClickEdit,
+}) => {
   return (
     <div className="employee-list-root">
       <table className="table-body">
@@ -29,8 +37,8 @@ const EmployeeList = ({ loading, employees, columns, actionLabel, error, onClick
               ))}
               <td className="col col-cell">
                 <div className="buttons-wrapper">
-                  <span>
-                    <IconButton onClick={() => {}} icon={<Edit />} />
+                  <span data-testid={`button-edit-wrapper-${e.id}`}>
+                    <IconButton onClick={() => onClickEdit(e)} icon={<Edit />} />
                   </span>
                   <span data-testid={`button-delete-wrapper-${e.id}`}>
                     <IconButton onClick={() => onClickDelete(e.id)} icon={<Delete />} />
@@ -127,6 +135,7 @@ EmployeeList.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.string,
   onClickDelete: PropTypes.func.isRequired,
+  onClickEdit: PropTypes.func.isRequired,
 };
 
 export default EmployeeList;
