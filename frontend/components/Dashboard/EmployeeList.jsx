@@ -32,7 +32,7 @@ const EmployeeList = ({
             <tr className="row" key={e.id} data-testid="employee-rows">
               {columns.map((col) => (
                 <td key={col.key} className="col col-cell" data-testid="employee-cells">
-                  {e[col.accessor]}
+                  {e[col.accessor]?.toLocaleString?.()}
                 </td>
               ))}
               <td className="col col-cell">
@@ -129,6 +129,7 @@ EmployeeList.propTypes = {
       key: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired,
       accessor: PropTypes.string.isRequired,
+      isCurrency: PropTypes.bool,
     }),
   ).isRequired,
   actionLabel: PropTypes.string.isRequired,

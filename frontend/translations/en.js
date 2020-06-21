@@ -35,7 +35,7 @@ const strings = {
       id: 'ID',
       name: 'Name',
       login: 'Login',
-      salary: 'Salary',
+      salary: 'Salary (S$)',
       actions: 'Actions',
     },
     pagination: {
