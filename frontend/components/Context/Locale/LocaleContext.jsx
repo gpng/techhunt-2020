@@ -23,17 +23,28 @@ const localeReducer = (state, action) => {
   }
 };
 
+const isValidLocale = (locale) => Object.values(LOCALES).includes(locale);
+
 const LocaleProvider = ({ children }) => {
   const [state, dispatch] = useReducer(localeReducer, { locale: LOCALES.DEFAULT });
 
   const router = useRouter();
 
   useEffect(() => {
-    let newLocale = router.query.locale;
-    if (!newLocale || !Object.values(LOCALES).includes(newLocale)) {
-      newLocale = LOCALES.DEFAULT;
+    let locale = null;
+    const routerLocale = router.query.locale;
+    if (routerLocale && isValidLocale(routerLocale)) {
+      locale = routerLocale;
     }
-    dispatch({ type: LOCALE_ACTIONS.UPDATE, payload: newLocale });
+    if (!locale) {
+      // get browser locale only if no specified locale
+      const browserLocale = window?.navigator?.language?.slice?.(0, 2);
+      if (browserLocale && isValidLocale(browserLocale)) {
+        locale = browserLocale;
+      }
+    }
+    if (!locale) locale = LOCALES.DEFAULT;
+    dispatch({ type: LOCALE_ACTIONS.UPDATE, payload: locale });
   }, [router.query.locale]);
 
   return <LocaleContext.Provider value={state}>{children}</LocaleContext.Provider>;
