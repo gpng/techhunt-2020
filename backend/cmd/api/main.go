@@ -93,7 +93,7 @@ func mainRouter(docs bool) chi.Router {
 
 	c := cors.New(cors.Options{
 		AllowedHeaders: []string{"*"},
-		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowedMethods: []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
 	})
 	router.Use(c.Handler)
 
