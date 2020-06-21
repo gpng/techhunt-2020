@@ -12,9 +12,6 @@ CONTAINER_TAG=techhunt
 DOCKERFILE=Dockerfile.dev
 MAIN_FOLDER=cmd/api
 MAIN_PATH=$(MAIN_FOLDER)/main.go
-DEPLOY_FOLDER=deploy
-DEPLOY_BINARY_NAME=$(DEPLOY_FOLDER)/application
-ZIP_PATH=$(DEPLOY_FOLDER)/deploy-$(shell date +'%Y%m%d-%H%M%S').zip
 
 default:
 	@echo "=============building API============="
@@ -30,7 +27,7 @@ logs:
 dev: up logs
 
 run:
-	go build -o bin/application $(MAIN_PATH) && ./bin/application -docs
+	go build -o bin/application $(MAIN_PATH) && ./bin/application
 
 down:
 	$(DOCKERCOMPOSECMD) down

@@ -38,5 +38,5 @@ EXPOSE 5000
 
 WORKDIR /app
 
-# Run the hello binary.
+# Run the binary.
 ENTRYPOINT ["./application"]

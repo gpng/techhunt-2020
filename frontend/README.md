@@ -1,15 +1,18 @@
 # TechHunt 2020 Take Home Assessment - Frontend
 
-HR Employee Salary Management MVP
+- Written in ReactJS, using NextJS.
+
+- Global app state is managed using React Context, by dispatching actions to reducers, and using useContext hooks to read state.
+
+- Tests are written and run using Jest and React-Testing-Library
 
 ## Table of Contents
 
+- [Setup](#setup)
 - [Usage](#usage)
-- [Maintainers](#maintainers)
-- [Contribute](#contribute)
-- [License](#license)
+- [Test](#test)
 
-## Usage
+## Setup
 
 1. Clone this repo
 
@@ -19,17 +22,23 @@ HR Employee Salary Management MVP
    yarn
    ```
 
-3. Run app
+## Usage
 
-   ```
-   yarn dev
-   ```
+```
+yarn dev
+```
 
-   or if you have now-cli installed,
+or if you have now-cli installed,
 
-   ```
-   now dev
-   ```
+```
+now dev
+```
+
+## Test
+
+```
+yarn test
+```
 
 ## Maintainers
 
