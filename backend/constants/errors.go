@@ -68,12 +68,12 @@ const (
 
 // error strings for search params
 const (
-	ErrStringSearchMissingParams    = "missing params"
-	ErrStringSearchInvalidSort      = "sort must be in the form +param (eg +name, -salary)"
-	ErrStringSearchInvalidMinSalary = "minSalary must be a number greater or equal to 0"
-	ErrStringSearchInvalidMaxSalary = "maxSalary must be a number greater or equal to 0, and greater than minSalary"
-	ErrStringSearchInvalidOffset    = "offset must be a number greater or equal to 0"
-	ErrStringSearchInvalidLimit     = "limit must be a number between 0 and 30"
+	ErrStringSearchMissingParams    = "Missing params"
+	ErrStringSearchInvalidSort      = "Sort must be in the form +param (eg +name, -salary)"
+	ErrStringSearchInvalidMinSalary = "Minimum salary must be a number greater or equal to 0"
+	ErrStringSearchInvalidMaxSalary = "Maximum salary must be a number greater or equal to 0, and greater than minSalary"
+	ErrStringSearchInvalidOffset    = "Offset must be a number greater or equal to 0"
+	ErrStringSearchInvalidLimit     = "Limit must be a number between 0 and 30"
 )
 
 // error strings for uploaded csv
