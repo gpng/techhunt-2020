@@ -30,22 +30,37 @@ exports[`should match default snapshot 1`] = `
       class="jsx-2616149830 drawer-slider-container"
     >
       <aside
-        class="jsx-3606731684 drawer-root"
+        class="jsx-1672971567 drawer-root"
       >
         <div
-          class="jsx-1818524733 avatar-root"
-        />
-        <div
-          class="jsx-3606731684 button-container"
+          class="jsx-961371421 avatar-root"
+        >
+          <img
+            alt=""
+            class="jsx-961371421"
+            src="/static/images/avatar_default.svg"
+          />
+        </div>
+        <section
+          class="jsx-1672971567"
+        >
+          <p
+            class="jsx-1672971567 name"
+          >
+            Hello, Ashley!
+          </p>
+        </section>
+        <section
+          class="jsx-1672971567 button-container"
         >
           <button
-            class="jsx-3606731684 button-function"
+            class="jsx-1672971567 button-function"
             data-testid="button-upload"
             type="button"
           >
             Upload CSV
           </button>
-        </div>
+        </section>
       </aside>
     </div>
   </div>
@@ -82,22 +97,37 @@ exports[`should match default snapshot after close: should match default snapsho
       class="jsx-2616149830 drawer-slider-container"
     >
       <aside
-        class="jsx-3606731684 drawer-root"
+        class="jsx-1672971567 drawer-root"
       >
         <div
-          class="jsx-1818524733 avatar-root"
-        />
-        <div
-          class="jsx-3606731684 button-container"
+          class="jsx-961371421 avatar-root"
+        >
+          <img
+            alt=""
+            class="jsx-961371421"
+            src="/static/images/avatar_default.svg"
+          />
+        </div>
+        <section
+          class="jsx-1672971567"
+        >
+          <p
+            class="jsx-1672971567 name"
+          >
+            Hello, Ashley!
+          </p>
+        </section>
+        <section
+          class="jsx-1672971567 button-container"
         >
           <button
-            class="jsx-3606731684 button-function"
+            class="jsx-1672971567 button-function"
             data-testid="button-upload"
             type="button"
           >
             Upload CSV
           </button>
-        </div>
+        </section>
       </aside>
     </div>
   </div>
@@ -134,22 +164,37 @@ exports[`should match open snapshot 1`] = `
       class="jsx-2616149830 drawer-slider-container drawer-slider-container--open"
     >
       <aside
-        class="jsx-3606731684 drawer-root"
+        class="jsx-1672971567 drawer-root"
       >
         <div
-          class="jsx-1818524733 avatar-root"
-        />
-        <div
-          class="jsx-3606731684 button-container"
+          class="jsx-961371421 avatar-root"
+        >
+          <img
+            alt=""
+            class="jsx-961371421"
+            src="/static/images/avatar_default.svg"
+          />
+        </div>
+        <section
+          class="jsx-1672971567"
+        >
+          <p
+            class="jsx-1672971567 name"
+          >
+            Hello, Ashley!
+          </p>
+        </section>
+        <section
+          class="jsx-1672971567 button-container"
         >
           <button
-            class="jsx-3606731684 button-function"
+            class="jsx-1672971567 button-function"
             data-testid="button-upload"
             type="button"
           >
             Upload CSV
           </button>
-        </div>
+        </section>
       </aside>
     </div>
   </div>

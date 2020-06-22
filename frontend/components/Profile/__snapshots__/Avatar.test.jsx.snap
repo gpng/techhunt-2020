@@ -3,15 +3,27 @@
 exports[`should match default snapshot 1`] = `
 <DocumentFragment>
   <div
-    class="jsx-1818524733 avatar-root"
-  />
+    class="jsx-961371421 avatar-root"
+  >
+    <img
+      alt=""
+      class="jsx-961371421"
+      src="/static/images/avatar_default.svg"
+    />
+  </div>
 </DocumentFragment>
 `;
 
 exports[`should match snapshot with width 1`] = `
 <DocumentFragment>
   <div
-    class="jsx-2018956221 avatar-root"
-  />
+    class="jsx-1161802909 avatar-root"
+  >
+    <img
+      alt=""
+      class="jsx-1161802909"
+      src="/static/images/avatar_default.svg"
+    />
+  </div>
 </DocumentFragment>
 `;
