@@ -8,7 +8,7 @@ import Pagination from './Pagination';
 // tanslations
 import useTranslations from '../../translations/useTranslations';
 // constants
-import { SEARCH, BREAKPOINTS, MODALS } from '../../constants';
+import { SEARCH, MODALS } from '../../constants';
 import { submitSearch, openModal } from '../../actions/creators';
 
 const Dashboard = () => {
@@ -104,20 +104,16 @@ const Dashboard = () => {
         >
           {t('dashboard.buttonSearch')}
         </button>
-        <div className="sort-wrapper">
-          <span>{t('dashboard.sortBy')}</span>
-          <select
-            value={sort}
-            onChange={(ev) => setSort(ev.target.value)}
-            data-testid="select-sort"
-          >
-            {searchOptions.map((x) => (
-              <option key={x.value} value={x.value}>
-                {`${x.asc ? '⬆️' : '⬇️'} ${x.label}`}
-              </option>
-            ))}
-          </select>
-        </div>
+      </div>
+      <div className="sort-wrapper">
+        <span>{t('dashboard.sortBy')}</span>
+        <select value={sort} onChange={(ev) => setSort(ev.target.value)} data-testid="select-sort">
+          {searchOptions.map((x) => (
+            <option key={x.value} value={x.value}>
+              {`${x.asc ? '⬆️' : '⬇️'} ${x.label}`}
+            </option>
+          ))}
+        </select>
       </div>
       <div className="pagination-wrapper">
         <Pagination
@@ -167,10 +163,11 @@ const Dashboard = () => {
         }
 
         .buttons-wrapper {
-          flex: 0 0 auto;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
+          margin-top: 1rem;
+        }
+
+        .sort-wrapper {
+          margin-top: 1.5rem;
         }
 
         .sort-wrapper > span {
@@ -182,7 +179,6 @@ const Dashboard = () => {
         }
 
         .button-search {
-          margin-top: 1rem;
         }
 
         .section-employees {
@@ -192,17 +188,6 @@ const Dashboard = () => {
 
         .pagination-wrapper {
           margin-top: 1rem;
-        }
-
-        @media only screen and (max-width: ${BREAKPOINTS.SMALL}px) {
-          .buttons-wrapper {
-            flex-direction: column;
-            align-items: flex-start;
-          }
-
-          .sort-wrapper {
-            margin-top: 1rem;
-          }
         }
       `}</style>
     </div>
