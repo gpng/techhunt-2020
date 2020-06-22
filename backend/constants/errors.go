@@ -73,7 +73,7 @@ const (
 	ErrStringSearchInvalidMinSalary = "minSalary must be a number greater or equal to 0"
 	ErrStringSearchInvalidMaxSalary = "maxSalary must be a number greater or equal to 0, and greater than minSalary"
 	ErrStringSearchInvalidOffset    = "offset must be a number greater or equal to 0"
-	ErrStringSearchInvalidLimit     = "limit must be a number greater or equal to 1"
+	ErrStringSearchInvalidLimit     = "limit must be a number between 0 and 30"
 )
 
 // error strings for uploaded csv

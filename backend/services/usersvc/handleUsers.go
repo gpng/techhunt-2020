@@ -23,7 +23,7 @@ import (
 // @Param minSalary query number true "Minimum salary"
 // @Param maxSalary query number true "Maximum salary"
 // @Param offset query number true "Offset results" minimum(0)
-// @Param limit query number true "Number of results" minimum(1)
+// @Param limit query number true "Number of results" minimum(1) maximum(30)
 // @Param sort query string true "Sort by parameter, etc +name, -login" Enums(+name, -name, +login, -login, +id, -id, +salary, -salary)
 // @Router /users [get]
 func (s *Service) handleSearch() http.HandlerFunc {

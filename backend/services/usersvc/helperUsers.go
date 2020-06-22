@@ -45,7 +45,7 @@ func GetSearchParams(query url.Values) (models.EmployeeSearch, error) {
 	searchParams.Offset = offset
 
 	limit, err := strconv.Atoi(queryLimit)
-	if err != nil || limit < 1 {
+	if err != nil || limit < 1 || limit > 30 {
 		return searchParams, fmt.Errorf(c.ErrStringSearchInvalidLimit)
 	}
 	searchParams.Limit = limit
