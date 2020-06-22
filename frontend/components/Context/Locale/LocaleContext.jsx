@@ -10,10 +10,25 @@ const LOCALE_ACTIONS = {
   UPDATE: 'update',
 };
 
+const updateLocale = (newLocale, browserLocale, isBrowserLocaleValid) => ({
+  type: LOCALE_ACTIONS.UPDATE,
+  payload: {
+    newLocale: newLocale?.toLowerCase?.(),
+    browserLocale: browserLocale?.toLowerCase?.(),
+    isBrowserLocaleValid,
+  },
+});
+
 const localeReducer = (state, action) => {
   switch (action.type) {
     case LOCALE_ACTIONS.UPDATE: {
-      return { locale: action.payload };
+      return {
+        locale: action.payload.newLocale,
+        browserLocale: {
+          code: action.payload.browserLocale,
+          valid: action.payload.isBrowserLocaleValid,
+        },
+      };
     }
     default: {
       // eslint-disable-next-line no-console
@@ -26,7 +41,13 @@ const localeReducer = (state, action) => {
 const isValidLocale = (locale) => Object.values(LOCALES).includes(locale);
 
 const LocaleProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(localeReducer, { locale: LOCALES.DEFAULT });
+  const [state, dispatch] = useReducer(localeReducer, {
+    locale: LOCALES.DEFAULT,
+    browserLocale: {
+      code: null,
+      valid: false,
+    },
+  });
 
   const router = useRouter();
 
@@ -36,15 +57,14 @@ const LocaleProvider = ({ children }) => {
     if (routerLocale && isValidLocale(routerLocale)) {
       locale = routerLocale;
     }
-    if (!locale) {
-      // get browser locale only if no specified locale
-      const browserLocale = window?.navigator?.language?.slice?.(0, 2);
-      if (browserLocale && isValidLocale(browserLocale)) {
-        locale = browserLocale;
-      }
+    // get browser locale only if no specified locale
+    const browserLocale = window?.navigator?.language?.slice?.(0, 2);
+    const isBrowserLocaleValid = isValidLocale(browserLocale);
+    if (!locale && browserLocale && isBrowserLocaleValid) {
+      locale = browserLocale;
     }
     if (!locale) locale = LOCALES.DEFAULT;
-    dispatch({ type: LOCALE_ACTIONS.UPDATE, payload: locale });
+    dispatch(updateLocale(locale, browserLocale, isBrowserLocaleValid));
   }, [router.query.locale]);
 
   return <LocaleContext.Provider value={state}>{children}</LocaleContext.Provider>;

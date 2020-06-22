@@ -9,7 +9,7 @@ const accessNestedProperty = (obj, key) => {
 };
 
 const useTranslations = () => {
-  const { locale } = useContext(LocaleContext);
+  const { locale, browserLocale } = useContext(LocaleContext);
 
   const t = (key) => {
     const string = accessNestedProperty(translations[locale], key);
@@ -20,7 +20,7 @@ const useTranslations = () => {
     return string || translations[LOCALES.DEFAULT][key] || '';
   };
 
-  return { t, locale };
+  return { t, locale, browserLocale };
 };
 
 export default useTranslations;

@@ -30,7 +30,7 @@ exports[`should match default snapshot 1`] = `
       class="jsx-2616149830 drawer-slider-container"
     >
       <aside
-        class="jsx-1672971567 drawer-root"
+        class="jsx-4236861201 drawer-root"
       >
         <div
           class="jsx-961371421 avatar-root"
@@ -42,19 +42,32 @@ exports[`should match default snapshot 1`] = `
           />
         </div>
         <section
-          class="jsx-1672971567"
+          class="jsx-4236861201"
         >
           <p
-            class="jsx-1672971567 name"
+            class="jsx-4236861201 name"
           >
             Hello, Ashley!
           </p>
         </section>
         <section
-          class="jsx-1672971567 button-container"
+          class="jsx-4236861201 locale-container"
+        >
+          <div
+            class="jsx-1468845466 locale-display-root"
+          >
+            <span
+              class="jsx-1468845466"
+            >
+              Language: English
+            </span>
+          </div>
+        </section>
+        <section
+          class="jsx-4236861201 button-container"
         >
           <button
-            class="jsx-1672971567 button-function"
+            class="jsx-4236861201 button-function"
             data-testid="button-upload"
             type="button"
           >
@@ -97,7 +110,7 @@ exports[`should match default snapshot after close: should match default snapsho
       class="jsx-2616149830 drawer-slider-container"
     >
       <aside
-        class="jsx-1672971567 drawer-root"
+        class="jsx-4236861201 drawer-root"
       >
         <div
           class="jsx-961371421 avatar-root"
@@ -109,19 +122,32 @@ exports[`should match default snapshot after close: should match default snapsho
           />
         </div>
         <section
-          class="jsx-1672971567"
+          class="jsx-4236861201"
         >
           <p
-            class="jsx-1672971567 name"
+            class="jsx-4236861201 name"
           >
             Hello, Ashley!
           </p>
         </section>
         <section
-          class="jsx-1672971567 button-container"
+          class="jsx-4236861201 locale-container"
+        >
+          <div
+            class="jsx-1468845466 locale-display-root"
+          >
+            <span
+              class="jsx-1468845466"
+            >
+              Language: English
+            </span>
+          </div>
+        </section>
+        <section
+          class="jsx-4236861201 button-container"
         >
           <button
-            class="jsx-1672971567 button-function"
+            class="jsx-4236861201 button-function"
             data-testid="button-upload"
             type="button"
           >
@@ -164,7 +190,7 @@ exports[`should match open snapshot 1`] = `
       class="jsx-2616149830 drawer-slider-container drawer-slider-container--open"
     >
       <aside
-        class="jsx-1672971567 drawer-root"
+        class="jsx-4236861201 drawer-root"
       >
         <div
           class="jsx-961371421 avatar-root"
@@ -176,19 +202,32 @@ exports[`should match open snapshot 1`] = `
           />
         </div>
         <section
-          class="jsx-1672971567"
+          class="jsx-4236861201"
         >
           <p
-            class="jsx-1672971567 name"
+            class="jsx-4236861201 name"
           >
             Hello, Ashley!
           </p>
         </section>
         <section
-          class="jsx-1672971567 button-container"
+          class="jsx-4236861201 locale-container"
+        >
+          <div
+            class="jsx-1468845466 locale-display-root"
+          >
+            <span
+              class="jsx-1468845466"
+            >
+              Language: English
+            </span>
+          </div>
+        </section>
+        <section
+          class="jsx-4236861201 button-container"
         >
           <button
-            class="jsx-1672971567 button-function"
+            class="jsx-4236861201 button-function"
             data-testid="button-upload"
             type="button"
           >

@@ -1,4 +1,7 @@
 const strings = {
+  locale: {
+    language: 'Language',
+  },
   prompts: {
     confirm: 'Confirm',
     cancel: 'Cancel',

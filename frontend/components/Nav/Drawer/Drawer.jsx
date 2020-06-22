@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import AppContext from '../../Context/App/AppContext';
 // components
 import Avatar from '../../Profile/Avatar';
+import LocaleDisplay from '../../Context/Locale/LocaleDisplay';
 // translations
 import useTranslations from '../../../translations/useTranslations';
 // actions
@@ -20,6 +21,9 @@ const Drawer = () => {
       <Avatar width="6rem" />
       <section>
         <p className="name">Hello, Ashley!</p>
+      </section>
+      <section className="locale-container">
+        <LocaleDisplay />
       </section>
       <section className="button-container">
         <button
@@ -45,6 +49,12 @@ const Drawer = () => {
         .name {
           margin-top: 2rem;
           color: ${COLORS.TEXT_DARK_PRIMARY};
+        }
+
+        .locale-container {
+          padding: 0 1rem;
+          margin-top: 2rem;
+          text-align: center;
         }
 
         .button-container {
