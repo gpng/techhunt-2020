@@ -18,7 +18,10 @@ const Drawer = () => {
   return (
     <aside className="drawer-root">
       <Avatar width="6rem" />
-      <div className="button-container">
+      <section>
+        <p className="name">Hello, Ashley!</p>
+      </section>
+      <section className="button-container">
         <button
           type="button"
           className="button-function"
@@ -27,7 +30,7 @@ const Drawer = () => {
         >
           {t('drawer.functions.uploadCSV')}
         </button>
-      </div>
+      </section>
       <style jsx>{`
         .drawer-root {
           background: ${COLORS.BACKGROUND_DARK_PRIMARY};
@@ -37,6 +40,11 @@ const Drawer = () => {
           flex-direction: column;
           align-items: center;
           padding: 2rem 0;
+        }
+
+        .name {
+          margin-top: 2rem;
+          color: ${COLORS.TEXT_DARK_PRIMARY};
         }
 
         .button-container {
